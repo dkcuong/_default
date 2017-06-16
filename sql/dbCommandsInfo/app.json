@@ -1,0 +1,5723 @@
+[
+    {
+        "command": {
+            "model": "removeField",
+            "index": "remove inventoryBatch field from invoices_receiving table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoices_receiving",
+            "dropField": "inventoryBatch"
+        },
+        "hash": "a7555c464ace9b71fbbabdca3690369b"
+    },
+    {
+        "command": {
+            "model": "removeField",
+            "index": "remove invoiceBatch field from invoices_receiving table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoices_receiving",
+            "dropField": "invoiceBatch"
+        },
+        "hash": "735e56642c515f0b9f297e2d30aa4554"
+    },
+    {
+        "command": {
+            "model": "updateFieldValue",
+            "index": "update status METR to TROM",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "statuses",
+            "updateField": "shortName",
+            "updateValue": "METR",
+            "searchField": "shortName",
+            "searchValue": "TROM"
+        },
+        "hash": "b01bd401340bf7008bd2345f41a190c4"
+    },
+    {
+        "command": {
+            "model": "addField",
+            "index": "add inventoryBatch field to invoices_storage table",
+            "negates": ""
+        },
+        "customQuery": [
+            "ALTER TABLE invoices_storage",
+            "ADD COLUMN inventoryBatch INT(8) ",
+            "NOT NULL AFTER recNum;"
+        ],
+        "queryInfo": {
+            "table": "invoices_storage",
+            "fieldName": "inventoryBatch"
+        },
+        "hash": "a4f646e31fb59c4e2ef652bd68ce891d"
+    },
+    {
+        "command": {
+            "model": "updateField",
+            "index": "change recNum field structure in inventory_batches table",
+            "negates": ""
+        },
+        "customQuery": [
+            "ALTER TABLE inventory_batches",
+            "CHANGE recNum recNum INT(8) NOT NULL"
+        ],
+        "queryInfo": {
+            "table": "inventory_batches",
+            "fieldName": "recNum"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(8)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "hash": "bb898cfb5a0ee0b0a67a46debd9d3b0d"
+    },
+    {
+        "command": {
+            "model": "updateField",
+            "index": "change recNum field structure in inventory_containers table",
+            "negates": ""
+        },
+        "customQuery": [
+            "ALTER TABLE inventory_containers",
+            "CHANGE recNum recNum INT(8) NOT NULL AUTO_INCREMENT"
+        ],
+        "queryInfo": {
+            "table": "inventory_containers",
+            "fieldName": "recNum"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(8)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            },
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": "auto_increment"
+            }
+        ],
+        "hash": "1caffcc8e9a7aa91509aa753ad68b101"
+    },
+    {
+        "command": {
+            "model": "updateField",
+            "index": "change recNum field structure in invoices_receiving table",
+            "negates": ""
+        },
+        "customQuery": [
+            "ALTER TABLE invoices_receiving",
+            "CHANGE recNum recNum INT(8) UNSIGNED ZEROFILL NULL DEFAULT NULL"
+        ],
+        "queryInfo": {
+            "table": "invoices_receiving",
+            "fieldName": "recNum"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(8) unsigned zerofill"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "hash": "e23c3e48358d492129fa8579bb6e7b52"
+    },
+    {
+        "command": {
+            "model": "updateField",
+            "index": "change recNum field structure in invoices_storage table",
+            "negates": ""
+        },
+        "customQuery": [
+            "ALTER TABLE invoices_storage",
+            "CHANGE recNum recNum INT(8) UNSIGNED ZEROFILL NULL DEFAULT NULL"
+        ],
+        "queryInfo": {
+            "table": "invoices_storage",
+            "fieldName": "recNum"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(8) unsigned zerofill"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "hash": "d376fb35f34aa05aa6f65652656bb60e"
+    },
+    {
+        "command": {
+            "model": "moveTable",
+            "index": "moving group_users table from users to app database",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "group_users",
+            "databaseAlias": "users"
+        },
+        "hash": "93b7023c8f23b009d69419b02afef643"
+    },
+    {
+        "command": {
+            "model": "updateField",
+            "index": "eplace group_users table active column data with values that are congruent to code",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "group_users",
+            "fieldName": "active"
+        },
+        "customQuery": [
+            "ALTER TABLE group_users",
+            "CHANGE active oldActive INT(2) NULL DEFAULT NULL;",
+            "",
+            "ALTER TABLE group_users ADD active TINYINT(1) NOT NULL DEFAULT 1;",
+            "",
+            "UPDATE group_users g",
+            "JOIN   statuses s ON s.id = g.oldActive",
+            "SET    active = s.displayName = \"Active\";",
+            "",
+            "ALTER TABLE group_users DROP oldActive;"
+        ],
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "tinyint(1)"
+            }
+        ],
+        "hash": "effba1f768f1a0b1e17f5418239d7f9f"
+    },
+    {
+        "command": {
+            "model": "updateField",
+            "index": "replace vendors table active column data with values that are congruent to code",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "vendors",
+            "fieldName": "active"
+        },
+        "customQuery": [
+            "ALTER TABLE vendors",
+            "CHANGE active oldActive INT(2) NULL DEFAULT NULL;",
+            "",
+            "ALTER TABLE vendors ADD active TINYINT(1) NOT NULL DEFAULT 1;",
+            "",
+            "UPDATE group_users g",
+            "JOIN   statuses s ON s.id = g.oldActive",
+            "SET    active = s.displayName = \"Active\";",
+            "",
+            "ALTER TABLE group_users DROP oldActive;"
+        ],
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "tinyint(1)"
+            }
+        ],
+        "hash": "26d8e22e5a04b91a9a7ad4c399670757"
+    },
+    {
+        "command": {
+            "model": "addIndexes",
+            "index": "add autoincrement and indices to group_users that was moved from users database",
+            "negates": ""
+        },
+        "customQuery": [
+            "ALTER TABLE group_users",
+            "ADD PRIMARY KEY (id),",
+            "ADD UNIQUE KEY userID (userID, vendorID),",
+            "ADD KEY active (active);",
+            "",
+            "ALTER TABLE group_users",
+            "CHANGE id id INT(5) NOT NULL AUTO_INCREMENT"
+        ],
+        "queryInfo": {
+            "tableName": "group_users",
+            "searchName": "key_name",
+            "searchValue": "PRIMARY"
+        },
+        "hash": "ceed6e13289d60215038235b26f763b3"
+    },
+    {
+        "command": {
+            "model": "addField",
+            "index": "add barcode field to transfers table",
+            "negates": ""
+        },
+        "customQuery": [
+            "ALTER TABLE transfers",
+            "ADD COLUMN barcode VARCHAR(20) NOT NULL; ",
+            "UPDATE transfers SET barcode = LEFT(MD5(id), 20);"
+        ],
+        "queryInfo": {
+            "table": "transfers",
+            "fieldName": "barcode"
+        },
+        "hash": "b06ab1334b0cde8478696fee10fd7eb4"
+    },
+    {
+        "command": {
+            "model": "addField",
+            "index": "add discrepancy field to transfers table",
+            "negates": ""
+        },
+        "customQuery": [
+            "ALTER TABLE transfers",
+            "ADD COLUMN discrepancy INT(8) DEFAULT NULL; "
+        ],
+        "queryInfo": {
+            "table": "transfers",
+            "fieldName": "discrepancy"
+        },
+        "hash": "f97b34f0de2350231f93a2261b86e82b"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "scanners",
+            "active": "1",
+            "method": "confirmMezzanineTransfers",
+            "hiddenName": "confirmMezzanineTransfers",
+            "displayName": "Confirm Mezzanine Transfers",
+            "submenuHidden": "administration",
+            "itemBefore": "mezzanineInventoryTransfer",
+            "itemAfter": "editupcs"
+        },
+        "command": {
+            "model": "page",
+            "index": "make a page for Mezzanine transfer confirmation scanner after Mezzanine Inventory Transfer page",
+            "negates": null
+        },
+        "hash": "1239d02275a9eaa078beb6708f99347a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "add active field to upcs_assigned table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "upcs_assigned",
+            "fieldName": "active"
+        },
+        "customQuery": [
+            "ALTER TABLE upcs_assigned",
+            "ADD COLUMN active TINYINT(1) NOT NULL DEFAULT 1;"
+        ],
+        "hash": "e2a57445c3f0cb8d1cc211ddf75a0d79"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "create awms_new_features table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "awms_new_features"
+        },
+        "customQuery": [
+            "CREATE TABLE `awms_new_features` (",
+            "    `id` int(11) NOT NULL AUTO_INCREMENT,",
+            "    `versionID` int(11) NOT NULL,",
+            "    `featureName` varchar(255) NOT NULL,",
+            "    `featureDescription` varchar(255) NOT NULL,",
+            "    `date` datetime NOT NULL,",
+            "    `active` tinyint(1) NOT NULL DEFAULT \"1\",",
+            "    PRIMARY KEY (`id`),",
+            "    KEY `versionID` (`versionID`)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
+        ],
+        "hash": "d3d6cddfedfa3aa26c22603175e9acfa"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "create release_versions table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "release_versions"
+        },
+        "customQuery": [
+            "CREATE TABLE `release_versions` (",
+            "    `id` int(11) NOT NULL AUTO_INCREMENT,",
+            "    `versionName` varchar(50) NOT NULL,",
+            "    `date` datetime NOT NULL,",
+            "    PRIMARY KEY (`id`)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
+        ],
+        "hash": "f22901496229264680a1fdfbfbcebe36"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Create version_info table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "version_info"
+        },
+        "customQuery": [
+            "CREATE TABLE `version_info` (",
+            "    `id` int(11) NOT NULL AUTO_INCREMENT,",
+            "    `userID` int(11) NOT NULL,",
+            "    `versionID` int(11) NOT NULL,",
+            "    `isShow` tinyint(1) NOT NULL DEFAULT \"1\",",
+            "    PRIMARY KEY (`id`),",
+            "    UNIQUE KEY `userID` (`userID`)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
+        ],
+        "hash": "3f1e5be3bac6283dc022ce74512c614b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "remove active field from upcs_assigned table",
+            "negates": "add active field to upcs_assigned table"
+        },
+        "queryInfo": {
+            "table": "upcs_assigned",
+            "dropField": "active"
+        },
+        "hash": "379879c6d8df9f6e684f7b1eaab10796"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "replaceIndex",
+            "index": "change unique index in upcs_assigned table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Non_unique",
+                "compare": "!=",
+                "value": "1"
+            }
+        ],
+        "queryInfo": {
+            "tableName": "upcs_assigned",
+            "searchName": "key_name",
+            "searchValue": "userID"
+        },
+        "customQuery": [
+            "ALTER TABLE upcs_assigned",
+            "DROP INDEX userID,",
+            "ADD UNIQUE userID (userID, upcID)"
+        ],
+        "hash": "8245ef9a6a4711f20b76cd0c072d5628"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "add hiddenName field to groups table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "groups",
+            "fieldName": "hiddenName"
+        },
+        "customQuery": [
+            "ALTER TABLE groups",
+            "ADD COLUMN hiddenName VARCHAR(50) NOT NULL AFTER groupName;"
+        ],
+        "hash": "edc0d44b4453b2adaf42cd0f3c151236"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "update Manager hidden name in groups table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "groups",
+            "updateField": "hiddenName",
+            "updateValue": "manager",
+            "confirmField": "groupName",
+            "confirmValue": "Manager"
+        },
+        "hash": "a549c2c42e9d594317a028b1ede0178a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "update CSR hidden name in groups table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "groups",
+            "updateField": "hiddenName",
+            "updateValue": "csr",
+            "confirmField": "groupName",
+            "confirmValue": "CSR"
+        },
+        "hash": "a2d3bc8eee3bf61e9f69c64e243a06c6"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "update Warehouse Staff hidden name in groups table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "groups",
+            "updateField": "hiddenName",
+            "updateValue": "warehouseStaff",
+            "confirmField": "groupName",
+            "confirmValue": "Warehouse Staff"
+        },
+        "hash": "0a0c1d1aa8810a5232a5589326b6131d"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "update Data Entry hidden name in groups table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "groups",
+            "updateField": "hiddenName",
+            "updateValue": "dataEntry",
+            "confirmField": "groupName",
+            "confirmValue": "Data Entry"
+        },
+        "hash": "e1ce8c0fa32e016759722db0438b2fb6"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "update Picking Staff hidden name in groups table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "groups",
+            "updateField": "hiddenName",
+            "updateValue": "pickingStaff",
+            "confirmField": "groupName",
+            "confirmValue": "Picking Staff"
+        },
+        "hash": "493a43a3576a9e6363c34b9750ee8b16"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "update Shipping Staff hidden name in groups table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "groups",
+            "updateField": "hiddenName",
+            "updateValue": "shippingStaff",
+            "confirmField": "groupName",
+            "confirmValue": "Shipping Staff"
+        },
+        "hash": "66cb4015a9f82fa48f428d0eea6fd031"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "update Invoicing Staff hidden name in groups table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "groups",
+            "updateField": "hiddenName",
+            "updateValue": "invoicingStaff",
+            "confirmField": "groupName",
+            "confirmValue": "Invoicing Staff"
+        },
+        "hash": "c3e105ee5aec579ac3d7294e1c5418c9"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add hiddenName unique key to groups table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "groups",
+            "searchName": "key_name",
+            "searchValue": "hiddenName"
+        },
+        "customQuery": [
+            "ALTER TABLE groups",
+            "ADD UNIQUE KEY hiddenName (hiddenName)"
+        ],
+        "hash": "61183fc5f18b3113a93a5a02fc7b64ca"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "groupName": "Mezzanine Admin",
+            "hiddenName": "mezzanineAdmin",
+            "description": "Mezzanine Admin",
+            "active": 1
+        },
+        "command": {
+            "model": "group",
+            "index": "Add Mezzanine Admin Group in groups table",
+            "negates": ""
+        },
+        "hash": "4fe4a7a2b05e94dab2ca51add0267352"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add catID unique key to upcs table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "upcs",
+            "searchName": "key_name",
+            "searchValue": "catID"
+        },
+        "customQuery": [
+            "ALTER TABLE upcs",
+            "ADD UNIQUE KEY catID (catID)"
+        ],
+        "hash": "6b3225ff4f2941ee32e25cb100f8f1c9"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "updatesList",
+            "method": "modify",
+            "active": "1",
+            "hiddenName": "updatesList",
+            "displayName": "List of Changes",
+            "submenuHidden": "administration",
+            "params": {
+                "editable": "display",
+                "type": "listFeature"
+            },
+            "itemBefore": "editupcs",
+            "itemAfter": "editReleaseVersion"
+        },
+        "command": {
+            "model": "page",
+            "index": "add List of Changes submenu to Administration submenu",
+            "negates": ""
+        },
+        "hash": "d94fbaccb509a884e25308ac10164817"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "updatesList",
+            "method": "modify",
+            "active": "0",
+            "hiddenName": "editReleaseVersion",
+            "displayName": "Edit Release Version",
+            "submenuHidden": "administration",
+            "params": {
+                "editable": "display",
+                "type": "releaseVersion"
+            },
+            "itemBefore": "updatesList",
+            "itemAfter": "adminSearchWarehouseLocations"
+        },
+        "command": {
+            "model": "page",
+            "index": "add Edit Release Version submenu to Administration submenu",
+            "negates": ""
+        },
+        "hash": "bffd08f1483bc3c543b5b2b09c2a978b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change displayName field structure in statuses table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "varchar(30)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "statuses",
+            "fieldName": "displayName"
+        },
+        "customQuery": [
+            "ALTER TABLE statuses",
+            "CHANGE displayName displayName VARCHAR(30) NULL DEFAULT NULL"
+        ],
+        "hash": "9f127918c386e6d08f74ae065570e1da"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "category": "reports",
+            "displayName": "Transfer Mezzanine User",
+            "shortName": "METU"
+        },
+        "command": {
+            "model": "status",
+            "index": "add Mezzanine user status to statuses table",
+            "negates": ""
+        },
+        "hash": "5ff20fd369efe0229a88847a3e376865"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change isSent field structure in reports_data table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "tinyint(1)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "!=",
+                "value": "1"
+            }
+        ],
+        "queryInfo": {
+            "table": "reports_data",
+            "fieldName": "isSent"
+        },
+        "customQuery": [
+            "ALTER TABLE reports_data",
+            "CHANGE isSent isSent TINYINT(1) NOT NULL DEFAULT 1"
+        ],
+        "hash": "d65efc2ce15f46ef3fd758047bd1a8df"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "renaming existing Mezzanine Transfer Statuses",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "statuses",
+            "updateField": "displayName",
+            "updateValue": "Transfer Mezzanine User",
+            "confirmField": "shortName",
+            "confirmValue": "METU"
+        },
+        "hash": "b2eb4de41d6410ff3d4b3b06602532aa"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "remove isSent field from reports_data table",
+            "negates": "change isSent field structure in reports_data table"
+        },
+        "queryInfo": {
+            "table": "reports_data",
+            "dropField": "isSent"
+        },
+        "hash": "241e2443d65ccabec3dadbfa166e30e1"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "add vendorID field to locations_info table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "locations_info",
+            "fieldName": "vendorID"
+        },
+        "customQuery": [
+            "ALTER TABLE locations_info",
+            "ADD COLUMN vendorID INT(5) NOT NULL AFTER id; "
+        ],
+        "hash": "793d26c661989563a4418c0b234614db"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "remove sku field from inventory_batches table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "inventory_batches",
+            "dropField": "sku"
+        },
+        "hash": "aca3dcead9325fc533b390b323e80005"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "remove size1 field from inventory_batches table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "inventory_batches",
+            "dropField": "size1"
+        },
+        "hash": "aca3dcead9325fc533b390b323e80005"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "remove color1 field from inventory_batches table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "inventory_batches",
+            "dropField": "color1"
+        },
+        "hash": "aca3dcead9325fc533b390b323e80005"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "remove size2 field from inventory_batches table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "inventory_batches",
+            "dropField": "size2"
+        },
+        "hash": "aca3dcead9325fc533b390b323e80005"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "remove color2 field from inventory_batches table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "inventory_batches",
+            "dropField": "color2"
+        },
+        "hash": "aca3dcead9325fc533b390b323e80005"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "remove size3 field from inventory_batches table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "inventory_batches",
+            "dropField": "size3"
+        },
+        "hash": "aca3dcead9325fc533b390b323e80005"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "remove color3 field from inventory_batches table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "inventory_batches",
+            "dropField": "color3"
+        },
+        "hash": "aca3dcead9325fc533b390b323e80005"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "locations",
+            "method": "search",
+            "active": "1",
+            "hiddenName": "searchWarehouseLocations",
+            "displayName": "Search Warehouse Locations",
+            "submenuHidden": "searchData",
+            "itemBefore": "searchClients",
+            "itemAfter": "searchPalletTallySheets"
+        },
+        "command": {
+            "model": "page",
+            "index": "add Search Warehouse Locations page to Administration submenu",
+            "negates": ""
+        },
+        "hash": "7a29c823d4ec70f54600b47922a9614f"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Create files table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "files"
+        },
+        "customQuery": [
+            "CREATE TABLE `files` (",
+            "    `id` int(11) NOT NULL AUTO_INCREMENT,",
+            "    `filename` varchar(255) COLLATE utf8_general_ci NOT NULL,",
+            "    `description` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,",
+            "    `url` varchar(255) COLLATE utf8_general_ci NOT NULL,",
+            "    `mime` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,",
+            "    `deleted` tinyint(1) DEFAULT \"0\",",
+            "    `created_at` datetime NOT NULL,",
+            "    `created_by` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,",
+            "    PRIMARY KEY (`id`)",
+            ") ENGINE=InnoDB AUTO_INCREMENT=1 "
+        ],
+        "hash": "037467f3aab6467ad4af71d800e0376a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "create receiving_attachment table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "receiving_attachment"
+        },
+        "customQuery": [
+            "CREATE TABLE `receiving_attachment` (",
+            "    `receiving_attachment_id` int(11) NOT NULL AUTO_INCREMENT,",
+            "    `file_id` int(11) DEFAULT NULL,",
+            "    `receiving_id` int(11) DEFAULT NULL,",
+            "    `ordered` tinyint(1) DEFAULT \"0\",",
+            "    PRIMARY KEY (`receiving_attachment_id`)",
+            ") ENGINE=InnoDB AUTO_INCREMENT=1"
+        ],
+        "hash": "1c1d2c91659c0ba961d812fd36ea6a63"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "create receiving_containers table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "receiving_containers"
+        },
+        "customQuery": [
+            "CREATE TABLE `receiving_containers` (",
+            "    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,",
+            "    `receiving_id` int(11) DEFAULT NULL,",
+            "    `container_num` varchar(8) DEFAULT NULL,",
+            "    `created_at` datetime DEFAULT NULL,",
+            "    PRIMARY KEY (`id`)",
+            ") ENGINE=InnoDB AUTO_INCREMENT=1"
+        ],
+        "hash": "d4aaf63029f302a4f07922a0620bc037"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "create receivings table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "receivings"
+        },
+        "customQuery": [
+            "CREATE TABLE `receivings` (",
+            "    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,",
+            "    `warehouse_id` int(11) DEFAULT NULL,",
+            "    `client_id` int(11) DEFAULT NULL,",
+            "    `ref` varchar(50) DEFAULT NULL,",
+            "    `note` varchar(255) DEFAULT NULL,",
+            "    `status` tinyint(1) DEFAULT NULL,",
+            "    `shipped_at` datetime DEFAULT NULL,",
+            "    `created_by` int(4) DEFAULT NULL,",
+            "    `created_at` datetime DEFAULT NULL,",
+            "    PRIMARY KEY (`id`)",
+            ") ENGINE=InnoDB AUTO_INCREMENT=1"
+        ],
+        "hash": "d259d63d96f9d147856a3a024171f160"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add file unique key to receiving_attachment table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "receiving_attachment",
+            "searchName": "key_name",
+            "searchValue": "file"
+        },
+        "customQuery": [
+            "ALTER TABLE receiving_attachment",
+            "ADD UNIQUE KEY file (file_id, receiving_id)"
+        ],
+        "hash": "8a5d2e7dbbd4fea42a2dfb064767fed1"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "scanners",
+            "method": "transferMezzanine",
+            "active": "1",
+            "hiddenName": "transferMezzanine",
+            "displayName": "UCCs Mezzanine Transfer Tool",
+            "submenuHidden": "inventoryControl",
+            "itemBefore": "locationinfo",
+            "itemAfter": "minMax"
+        },
+        "command": {
+            "model": "page",
+            "index": "add UCCs Mezzanine Transfer Tool page to Inventory Control submenu",
+            "negates": ""
+        },
+        "hash": "9886812333c348b09281dd07d331258f"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "category": "receivings",
+            "displayName": "New",
+            "shortName": "NEW"
+        },
+        "command": {
+            "model": "status",
+            "index": "update New hidden name in groups table",
+            "negates": ""
+        },
+        "hash": "64ace56abf04dcdae74336ee2a105899"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "category": "receivings",
+            "displayName": "Receipted",
+            "shortName": "RCT"
+        },
+        "command": {
+            "model": "status",
+            "index": "update Receipted hidden name in groups table",
+            "negates": ""
+        },
+        "hash": "ce7c3d0c35efa77cdd866c0157e19a39"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "category": "receivings",
+            "displayName": "Finished",
+            "shortName": "FNS"
+        },
+        "command": {
+            "model": "status",
+            "index": "update Finished hidden name in groups table",
+            "negates": ""
+        },
+        "hash": "b48f57f5dbec3868388bb974ff928b25"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "category": "receivings",
+            "displayName": "Canceled",
+            "shortName": "CCL"
+        },
+        "command": {
+            "model": "status",
+            "index": "update Canceled hidden name in groups table",
+            "negates": ""
+        },
+        "hash": "a32b48ce00da649cfb68f4e4c39287c8"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "category": "receivings",
+            "displayName": "Deleted",
+            "shortName": "DEL"
+        },
+        "command": {
+            "model": "status",
+            "index": "update Deleted hidden name in groups table",
+            "negates": ""
+        },
+        "hash": "af4e8a2cd81e6d18f5673969fc2c425f"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change statusID field structure in receivings table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "receivings",
+            "fieldName": "statusID"
+        },
+        "customQuery": [
+            "ALTER TABLE receivings",
+            "CHANGE status statusID INT(3) NOT NULL"
+        ],
+        "hash": "38ca768762c9a7c39b620d65889dd883"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change warehouse_id field structure in receivings",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(11)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "receivings",
+            "fieldName": "warehouse_id"
+        },
+        "customQuery": [
+            "ALTER TABLE receivings",
+            "CHANGE warehouse_id warehouse_id INT(11) NOT NULL"
+        ],
+        "hash": "c06f5abdce460c91bea9a1f0707f9829"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change client_id field structure in receivings",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(11)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "receivings",
+            "fieldName": "client_id"
+        },
+        "customQuery": [
+            "ALTER TABLE receivings",
+            "CHANGE client_id client_id INT(11) NOT NULL"
+        ],
+        "hash": "88823c3079ef8b8344fc63e0517dd4bb"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change created_by field structure in receivings table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "receivings",
+            "fieldName": "created_by"
+        },
+        "customQuery": [
+            "ALTER TABLE receivings",
+            "CHANGE created_by created_by INT(4) NOT NULL"
+        ],
+        "hash": "b3da7dfdea22eab6127c14bc2d677629"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change eachHeight field structure in inventory_batches table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "decimal(6,2)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "inventory_batches",
+            "fieldName": "eachHeight"
+        },
+        "customQuery": [
+            "ALTER TABLE inventory_batches",
+            "CHANGE eachHeight eachHeight DECIMAL(6,2) NOT NULL"
+        ],
+        "hash": "f0ae973cc69351296ec9ae69d4f064f6"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change eachWidth field structure in inventory_batches table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "decimal(6,2)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "inventory_batches",
+            "fieldName": "eachWidth"
+        },
+        "customQuery": [
+            "ALTER TABLE inventory_batches",
+            "CHANGE eachWidth eachWidth DECIMAL(6,2) NOT NULL"
+        ],
+        "hash": "b4c726e9c9e95c038672f42001fef5fd"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change eachLength field structure in inventory_batches table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "decimal(6,2)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "inventory_batches",
+            "fieldName": "eachLength"
+        },
+        "customQuery": [
+            "ALTER TABLE inventory_batches",
+            "CHANGE eachLength eachLength DECIMAL(6,2) NOT NULL"
+        ],
+        "hash": "cb7147bc791f6af3ee25625cf0da3578"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change eachWeight field structure in inventory_batches table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "decimal(6,2)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "inventory_batches",
+            "fieldName": "eachWeight"
+        },
+        "customQuery": [
+            "ALTER TABLE inventory_batches",
+            "CHANGE eachWeight eachWeight DECIMAL(6,2) NOT NULL"
+        ],
+        "hash": "699f38d35b03a271b326613129a8ac71"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change clientordernumber field structure in neworder table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "varchar(30)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "neworder",
+            "fieldName": "clientordernumber"
+        },
+        "customQuery": [
+            "ALTER TABLE neworder",
+            "CHANGE clientordernumber ",
+            "clientordernumber VARCHAR(30) NULL DEFAULT NULL"
+        ],
+        "hash": "9ad3c5bca8ed10f5deee6b72a50862c4"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add primary key to commodity table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "commodity",
+            "searchName": "key_name",
+            "searchValue": "PRIMARY"
+        },
+        "customQuery": [
+            "ALTER TABLE commodity",
+            "ADD PRIMARY KEY (id)"
+        ],
+        "hash": "5bd65126c9e0e7d66994a4422871d26d"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add description unique key to commodity table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "commodity",
+            "searchName": "key_name",
+            "searchValue": "description"
+        },
+        "customQuery": [
+            "ALTER TABLE commodity",
+            "ADD UNIQUE KEY description (description)"
+        ],
+        "hash": "e2e7fca0452cb13de8c626106251a891"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change id field structure in commodity table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(11)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            },
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": "auto_increment"
+            }
+        ],
+        "queryInfo": {
+            "table": "commodity",
+            "fieldName": "id"
+        },
+        "customQuery": [
+            "ALTER TABLE commodity",
+            "CHANGE id id INT(11) NOT NULL AUTO_INCREMENT"
+        ],
+        "hash": "206c12130bf3fe7ec59298f85c0955dd"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "inventory",
+            "method": "summaryReport",
+            "active": "1",
+            "hiddenName": "summaryReport",
+            "displayName": "Summary report",
+            "submenuHidden": "administration",
+            "itemBefore": "adminSearchWarehouseLocations",
+            "itemAfter": null
+        },
+        "command": {
+            "model": "page",
+            "index": "add Summary Report page to Administration menu",
+            "negates": ""
+        },
+        "hash": "f2cfd3cfeb248405cfdcd4f6e88080b5"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "make Summary Report page name title case",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "pages",
+            "updateField": "displayName",
+            "updateValue": "Summary Report",
+            "confirmField": "hiddenName",
+            "confirmValue": "summaryReport"
+        },
+        "hash": "7a2f7c759f8e0d55c1e23a22f8861c4b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "create and populate min_max table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "min_max"
+        },
+        "customQuery": [
+            "CREATE TABLE min_max (",
+            "    id INT(7) NOT NULL AUTO_INCREMENT,",
+            "    locID INT(7) NOT NULL,",
+            "    upcID INT(10) NOT NULL,",
+            "    minCount INT(8) NOT NULL DEFAULT 0,",
+            "    maxCount INT(8) NOT NULL DEFAULT 0,",
+            "    active tinyint(1) NOT NULL DEFAULT 1,",
+            "    PRIMARY KEY (id),",
+            "    KEY locID (locID),",
+            "    KEY upcID (upcID),",
+            "    UNIQUE KEY uniqueUpc (upcID)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+            "",
+            "--  Fill in min_max table with data obtained from locations_info table",
+            "",
+            "INSERT INTO min_max (upcID, locID, minCount, maxCount)",
+            "SELECT    upcID, locID, minCount, maxCount",
+            "FROM      locations_info",
+            "WHERE     active",
+            "AND       minCount IS NOT NULL",
+            "AND       maxCount IS NOT NULL",
+            "GROUP BY  upcID"
+        ],
+        "hash": "77dd717c86afa1eb62b0ab55a2ec7fed"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "create min_max_ranges table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "min_max_ranges"
+        },
+        "customQuery": [
+            "CREATE TABLE min_max_ranges (",
+            "    id INT(11) NOT NULL AUTO_INCREMENT,",
+            "    vendorID INT(11) NOT NULL,",
+            "    minCount INT(8) NOT NULL DEFAULT 0,",
+            "    maxCount INT(8) NOT NULL DEFAULT 0,",
+            "    startLocID INT(7) NULL DEFAULT NULL,",
+            "    endLocID INT(7) NULL DEFAULT NULL,",
+            "    PRIMARY KEY (id),",
+            "    KEY vendorID (vendorID),",
+            "    UNIQUE KEY uniqueVendor (vendorID)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
+        ],
+        "hash": "63fd71feb781ffe519957a154b028819"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "minMax",
+            "method": "search",
+            "active": "1",
+            "hiddenName": "minMax",
+            "displayName": "Locations MinMax",
+            "submenuHidden": "inventoryControl",
+            "params": {
+                "editable": "display"
+            },
+            "itemBefore": "transferMezzanine",
+            "itemAfter": "minMaxRanges"
+        },
+        "command": {
+            "model": "page",
+            "index": "add Min Max page to Inventory Control menu",
+            "negates": ""
+        },
+        "hash": "5036fb01650d2969819fe6f3a809737a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropIndex",
+            "index": "remove uniqueUpc key from min_max table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "min_max",
+            "searchValue": "uniqueUpc"
+        },
+        "hash": "1eb8c9eef53c597bae2abc325c4ff7c3"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add uniqueLocationUpc unique key to min_max table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "min_max",
+            "searchValue": "uniqueLocationUpc",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE min_max",
+            "ADD UNIQUE KEY uniqueLocationUpc (locID, upcID)"
+        ],
+        "hash": "43adcdd7f68d80097ca3475f35ed1ccb"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "minMaxRanges",
+            "method": "search",
+            "active": "1",
+            "hiddenName": "minMaxRanges",
+            "displayName": "Locations MinMax Ranges",
+            "submenuHidden": "inventoryControl",
+            "params": {
+                "editable": "display"
+            },
+            "itemBefore": "minMax",
+            "itemAfter": null
+        },
+        "command": {
+            "model": "page",
+            "index": "add Min Max Ranges page to Inventory Control menu",
+            "negates": ""
+        },
+        "hash": "8c030f58307ded7458f81f4f25e104f9"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "add active field to min_max_ranges table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "min_max_ranges",
+            "fieldName": "active"
+        },
+        "customQuery": [
+            "ALTER TABLE min_max_ranges",
+            "ADD COLUMN active TINYINT(1) NOT NULL DEFAULT 1; "
+        ],
+        "hash": "1e12e5fd4155b09d430d83536ca34c4b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "add active field to deal_sites table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "deal_sites",
+            "fieldName": "active"
+        },
+        "customQuery": [
+            "ALTER TABLE deal_sites",
+            "ADD COLUMN active TINYINT(1) NOT NULL DEFAULT 1; "
+        ],
+        "hash": "c104261d05850c3bb31569bb93455254"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "displayName": "EliteBrands.com",
+            "imageName": "eliteBrands"
+        },
+        "command": {
+            "model": "dealSite",
+            "index": "add EliteBrands dealsite",
+            "negates": ""
+        },
+        "hash": "048d36e57d813582663c7f2906351084"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "add labelNo field to online_orders_exports table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "online_orders_exports",
+            "fieldName": "labelNo"
+        },
+        "customQuery": [
+            "ALTER TABLE online_orders_exports",
+            "ADD COLUMN labelNo INT(3) NULL DEFAULT NULL; "
+        ],
+        "hash": "f709844c05513541d4b498054f93d237"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add uniqueUpcID key to upcs_assigned table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "upcs_assigned",
+            "searchValue": "uniqueUpcID",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE upcs_assigned",
+            "ADD  KEY uniqueUpcID (upcID)"
+        ],
+        "hash": "3a9c9b419992ddf4f457a3bf2b692139"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropIndex",
+            "index": "remove upcID key from upcs_assigned table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "upcs_assigned",
+            "searchValue": "upcID"
+        },
+        "hash": "477d06ccb84111662aa3b27c22d4639a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropIndex",
+            "index": "remove uniqueUpcID key from upcs_assigned table",
+            "negates": "add uniqueUpcID key to upcs_assigned table"
+        },
+        "queryInfo": {
+            "tableName": "upcs_assigned",
+            "searchValue": "uniqueUpcID"
+        },
+        "hash": "3ecdecee45bf6ec44ed4c0320ac141db"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add upcID unique key to upcs_assigned table",
+            "negates": "remove upcID key from upcs_assigned table"
+        },
+        "queryInfo": {
+            "tableName": "upcs_assigned",
+            "searchValue": "upcID",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE upcs_assigned",
+            "ADD UNIQUE KEY upcID (upcID)"
+        ],
+        "hash": "e98de7649273a84623a60eb0c0d94214"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "orders",
+            "method": "shippingInfo",
+            "active": "1",
+            "hiddenName": "orderShippingInfo",
+            "displayName": "Edit Order Shipping Info",
+            "submenuHidden": "editData",
+            "params": {
+                "editable": "display"
+            },
+            "itemBefore": "editupcscategory",
+            "itemAfter": null
+        },
+        "command": {
+            "model": "page",
+            "index": "add Edit Order Shipping Info page to menu Edit Data menu",
+            "negates": ""
+        },
+        "hash": "0c899168fb7bcc8d94f18d2ba709ee22"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add activeChild unique key to inventory_splits table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "inventory_splits",
+            "searchValue": "activeChild",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE inventory_splits",
+            "ADD UNIQUE KEY activeChild (childID, active)"
+        ],
+        "hash": "1254ebeb9f422ee4eeb770215e076f88"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropIndex",
+            "index": "remove active key from inventory_splits table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "inventory_splits",
+            "searchValue": "active"
+        },
+        "hash": "bd214867725e43be2a4755b209b95c36"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "add hiddenName field to submenus table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "submenus",
+            "fieldName": "hiddenName"
+        },
+        "customQuery": [
+            "ALTER TABLE submenus",
+            "ADD COLUMN hiddenName VARCHAR(50) NOT NULL AFTER id;",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"wms\"",
+            "WHERE   displayName = \"WMS\";",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"searchData\"",
+            "WHERE   displayName = \"Search Data\";",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"searchLogs\"",
+            "WHERE   displayName = \"Search Logs\";",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"onlineOrder\"",
+            "WHERE   displayName = \"Online Order\";",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"invoice\"",
+            "WHERE   displayName = \"Invoice\";",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"nsi\"",
+            "WHERE   displayName = \"NSI\";",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"editData\"",
+            "WHERE   displayName = \"Edit Data\";",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"administration\"",
+            "WHERE   displayName = \"Administration\";",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"inventoryControl\"",
+            "WHERE   displayName = \"Inventory Control\";",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"database\"",
+            "WHERE   displayName = \"DataBase\";",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"pageTester\"",
+            "WHERE   displayName = \"Page Tester\";",
+            "",
+            "UPDATE  submenus",
+            "SET     hiddenName = \"signOut\"",
+            "WHERE   displayName = \"Sign Out\";"
+        ],
+        "hash": "efb67035412aebcdf30f01af25bb9dd9"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateJoinRow",
+            "index": "remove pageTester page from the Main Menu",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "submenu_pages",
+            "joinTable": "pages",
+            "tableOn": "pageID",
+            "joinOn": "id",
+            "updateField": "active",
+            "updateValue": "0",
+            "searchField": "active",
+            "searchValue": "1",
+            "joinField": "hiddenName",
+            "joinValue": "runPageTests"
+        },
+        "hash": "80840bacb721f0c1746e4afd810b7fb0"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "remove pageTester submenu from the Main Menu",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "submenus",
+            "updateField": "active",
+            "updateValue": "0",
+            "confirmField": "hiddenName",
+            "confirmValue": "pageTester"
+        },
+        "hash": "f07a971f5aece2c266c6c79add10b2ae"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "change run db check page to test commands page",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "pages",
+            "updateField": "displayName",
+            "updateValue": "Test Commands",
+            "confirmField": "hiddenName",
+            "confirmValue": "runDBCheck"
+        },
+        "hash": "2f1b6fba0e7cb975cc373d8502e1d6c1"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "change test commands page class",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "pages",
+            "updateField": "class",
+            "updateValue": "developers",
+            "confirmField": "hiddenName",
+            "confirmValue": "runDBCheck"
+        },
+        "hash": "8e271200ef6935c00366128fdf82fb2a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "change test commands page method",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "pages",
+            "updateField": "method",
+            "updateValue": "dbChecker",
+            "confirmField": "hiddenName",
+            "confirmValue": "runDBCheck"
+        },
+        "hash": "60210112f9dd015289ab5149cf33c9b3"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change isSent field structure in reports table",
+            "negates": "remove isSent field from reports_data table"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "tinyint(1)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "!=",
+                "value": "1"
+            }
+        ],
+        "queryInfo": {
+            "table": "reports",
+            "fieldName": "isSent"
+        },
+        "customQuery": [
+            "ALTER TABLE reports",
+            "CHANGE isSent isSent TINYINT(1) NOT NULL DEFAULT 1"
+        ],
+        "hash": "8cbba415e080f23938cd73af27bf747b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropIndex",
+            "index": "remove upc_2 key from upcs table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "upcs",
+            "searchValue": "upc_2"
+        },
+        "hash": "e2f41e741562797194203aaf733b8ab5"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add sku unique key to upcs table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "upcs",
+            "searchValue": "sku",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE upcs",
+            "ADD UNIQUE KEY sku (sku, size, color)"
+        ],
+        "hash": "639b7ab1b87576cd2d7b9ae9dbcf9071"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "change database submenu to development",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "submenus",
+            "updateField": "displayName",
+            "updateValue": "Development",
+            "confirmField": "hiddenName",
+            "confirmValue": "database"
+        },
+        "hash": "0b7cceb16a2406e7a55feb5a134df6bc"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "tester",
+            "method": "pages",
+            "active": "1",
+            "hiddenName": "automatedTesting",
+            "displayName": "Automated Testing",
+            "submenuHidden": "database",
+            "itemBefore": null,
+            "itemAfter": "runDBCheck"
+        },
+        "command": {
+            "model": "page",
+            "index": "add new automated tester link to development submenu",
+            "negates": ""
+        },
+        "hash": "646fdf878471b787932bb8047db3f77e"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "tester",
+            "method": "list",
+            "active": "0",
+            "hiddenName": "testSets",
+            "displayName": "Test Sets",
+            "submenuHidden": "database",
+            "params": {
+                "editable": "display",
+                "show": "cases"
+            },
+            "itemBefore": "runDBCheck",
+            "itemAfter": "testRequests"
+        },
+        "command": {
+            "model": "page",
+            "index": "add title for Test Sets page",
+            "negates": ""
+        },
+        "hash": "dd19a783fee92431f91b690ede4e985b"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "tester",
+            "method": "list",
+            "active": "0",
+            "hiddenName": "testRequests",
+            "displayName": "Requests",
+            "submenuHidden": "database",
+            "params": {
+                "editable": "display",
+                "show": "tests"
+            },
+            "itemBefore": "testSets",
+            "itemAfter": "testSetRequests"
+        },
+        "command": {
+            "model": "page",
+            "index": "add title for Test Requests page",
+            "negates": ""
+        },
+        "hash": "360de7ac3543e223e9e9d670860ce4bc"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "tester",
+            "method": "list",
+            "active": "0",
+            "hiddenName": "testSetRequests",
+            "displayName": "Test Set Requests",
+            "submenuHidden": "database",
+            "params": {
+                "editable": "display",
+                "show": "caseTests"
+            },
+            "itemBefore": "testRequests",
+            "itemAfter": "testInputs"
+        },
+        "command": {
+            "model": "page",
+            "index": "add title for Test Set Requests page",
+            "negates": ""
+        },
+        "hash": "1c1c306ab57b9fa8f5566a1688d926b5"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "tester",
+            "method": "list",
+            "active": "0",
+            "hiddenName": "testInputs",
+            "displayName": "Request Inputs",
+            "submenuHidden": "database",
+            "params": {
+                "editable": "display",
+                "show": "testInputs"
+            },
+            "itemBefore": "testSetRequests",
+            "itemAfter": "ignoreFields"
+        },
+        "command": {
+            "model": "page",
+            "index": "add title for Test Inputs page",
+            "negates": ""
+        },
+        "hash": "fd262890ba3263fd6d86716580e40ea1"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "tester",
+            "method": "list",
+            "active": "0",
+            "hiddenName": "ignoreFields",
+            "displayName": "Ignore Fields",
+            "submenuHidden": "database",
+            "params": {
+                "editable": "display",
+                "show": "ignoreFields"
+            },
+            "itemBefore": "testInputs",
+            "itemAfter": null
+        },
+        "command": {
+            "model": "page",
+            "index": "add title for Ignore Fields page",
+            "negates": ""
+        },
+        "hash": "7b2476adf135565fdd263e9a2ebeb7ca"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change recOT field structure in invoices_receiving table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "decimal(8,2) unsigned zerofill"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "invoices_receiving",
+            "fieldName": "recOT"
+        },
+        "customQuery": [
+            "ALTER TABLE invoices_receiving",
+            "CHANGE recOT recOT DECIMAL(8,2) UNSIGNED ZEROFILL NOT NULL"
+        ],
+        "hash": "9a55048e8570d825c60b832f1c34c36e"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change recLabour field structure in invoices_receiving table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "decimal(8,2) unsigned zerofill"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "invoices_receiving",
+            "fieldName": "recLabour"
+        },
+        "customQuery": [
+            "ALTER TABLE invoices_receiving",
+            "CHANGE recLabour recLabour DECIMAL(8,2) UNSIGNED ZEROFILL NOT NULL"
+        ],
+        "hash": "c6ffa926640fe53e885d2484349b7c09"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change recQC field structure in invoices_receiving table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "decimal(8,2) unsigned zerofill"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "invoices_receiving",
+            "fieldName": "recQC"
+        },
+        "customQuery": [
+            "ALTER TABLE invoices_receiving",
+            "CHANGE recQC recQC DECIMAL(8,2) UNSIGNED ZEROFILL NOT NULL"
+        ],
+        "hash": "3dc6acfed6a20487fa1729b0eecac043"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateJoinRow",
+            "index": "defaultInputs Dropdown Receiving Invoice set option to statusID",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "page_params",
+            "joinTable": "pages",
+            "tableOn": "pageID",
+            "joinOn": "id",
+            "updateField": "active",
+            "updateValue": "1",
+            "searchField": "name",
+            "searchValue": "firstDropdown",
+            "joinField": "hiddenname",
+            "joinValue": "receivingInvoices"
+        },
+        "hash": "17d1e8a2b4907769e21b97a2f9e8b5a1"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateJoinRow",
+            "index": "defaultInputs Dropdown Receiving Invoice set to active",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "page_params",
+            "joinTable": "pages",
+            "tableOn": "pageID",
+            "joinOn": "id",
+            "updateField": "value",
+            "updateValue": "statusID",
+            "searchField": "name",
+            "searchValue": "firstDropdown",
+            "joinField": "hiddenname",
+            "joinValue": "receivingInvoices"
+        },
+        "hash": "d9228ff6e1cf60eb50ed90cd2e0ff814"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateJoinRow",
+            "index": "update second dropdown to inactive",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "page_params",
+            "joinTable": "pages",
+            "tableOn": "pageID",
+            "joinOn": "id",
+            "updateField": "active",
+            "updateValue": "0",
+            "searchField": "name",
+            "searchValue": "secondDropdown",
+            "joinField": "hiddenname",
+            "joinValue": "receivingInvoices"
+        },
+        "hash": "196de8c3fbe2cf221c7aede5f29e1352"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateJoinRow",
+            "index": "update third dropdown to inactive",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "page_params",
+            "joinTable": "pages",
+            "tableOn": "pageID",
+            "joinOn": "id",
+            "updateField": "active",
+            "updateValue": "0",
+            "searchField": "name",
+            "searchValue": "thirdDropdown",
+            "joinField": "hiddenname",
+            "joinValue": "receivingInvoices"
+        },
+        "hash": "0ed1f9a619b516f8970a86e4534d9699"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateJoinRow",
+            "index": "update fourth dropdown to inactive",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "page_params",
+            "joinTable": "pages",
+            "tableOn": "pageID",
+            "joinOn": "id",
+            "updateField": "active",
+            "updateValue": "0",
+            "searchField": "name",
+            "searchValue": "fourthDropdown",
+            "joinField": "hiddenname",
+            "joinValue": "receivingInvoices"
+        },
+        "hash": "e487e46f3e40f3b2b47d224fe6210edd"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change total field structure in invoices_receiving table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "decimal(8,2)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            },
+            {
+                "name": "Default",
+                "compare": "!=",
+                "value": "0.00"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoices_receiving",
+            "fieldName": "total"
+        },
+        "customQuery": [
+            "ALTER TABLE invoices_receiving",
+            "CHANGE total total DECIMAL(8,2) NULL DEFAULT 0.00"
+        ],
+        "hash": "47c3520e0e9b0f916e1828fa800f6094"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "second change recNum field structure in invoices_receiving table",
+            "negates": "change recNum field structure in invoices_receiving table"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(8)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "NO"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "invoices_receiving",
+            "fieldName": "recNum"
+        },
+        "customQuery": [
+            "ALTER TABLE invoices_receiving",
+            "CHANGE recNum recNum INT(8) NOT NULL"
+        ],
+        "hash": "dd7a8f787b73bbe57970d538b90d8aeb"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "receiving",
+            "method": "display",
+            "active": "1",
+            "hiddenName": "receivingContainer",
+            "displayName": "Receiving",
+            "submenuHidden": "wms",
+            "itemBefore": null,
+            "itemAfter": "scanContainer"
+        },
+        "command": {
+            "model": "page",
+            "index": "add Receiving page to WMS menu",
+            "negates": ""
+        },
+        "hash": "a2d794ff4c9de39a73fe050a1c319821"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateSearchTwo",
+            "index": "add shortName values to vendors active in statuses table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "statuses",
+            "updateField": "shortName",
+            "updateValue": "AC",
+            "confirmField": "category",
+            "confirmValue": "vendors",
+            "secondField": "displayName",
+            "secondValue": "Active"
+        },
+        "hash": "ab66164328e028a5ef624c62db6f5368"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateSearchTwo",
+            "index": "add shortName values to vendors inactive in statuses table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "statuses",
+            "updateField": "shortName",
+            "updateValue": "IN",
+            "confirmField": "category",
+            "confirmValue": "vendors",
+            "secondField": "displayName",
+            "secondValue": "Inactive"
+        },
+        "hash": "6b1dd92f405262095649ba7356a41b38"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add uniqueCategoryDisplayName unique key to statuses table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "uniqueCategoryDisplayName",
+            "tableName": "statuses",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE statuses",
+            "ADD UNIQUE KEY uniqueCategoryDisplayName (category, displayName)"
+        ],
+        "hash": "51210682067ba67d9392d76591b89fdc"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add uniqueCategoryShortName unique key to statuses table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "uniqueCategoryShortName",
+            "tableName": "statuses",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE statuses",
+            "ADD UNIQUE KEY uniqueCategoryShortName (category, shortName)"
+        ],
+        "hash": "99b3519fa1f0034f24c8c33df745c7d9"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "tester",
+            "method": "list",
+            "active": "1",
+            "hiddenName": "tests",
+            "displayName": "Tests",
+            "submenuHidden": "database",
+            "params": {
+                "editable": "dispaly",
+                "show": "tests"
+            },
+            "itemBefore": "runDBCheck",
+            "itemAfter": "testSeries"
+        },
+        "command": {
+            "model": "page",
+            "index": "add Test Listing page",
+            "negates": ""
+        },
+        "hash": "87d249c19e6a7378614eba578081760c"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "tester",
+            "method": "list",
+            "active": "1",
+            "hiddenName": "testSeries",
+            "displayName": "Test Series",
+            "submenuHidden": "database",
+            "params": {
+                "editable": "display",
+                "show": "testSeries"
+            },
+            "itemBefore": "tests",
+            "itemAfter": "testResults"
+        },
+        "command": {
+            "model": "page",
+            "index": "add Test Series Listing page",
+            "negates": ""
+        },
+        "hash": "38791ca1e94af5cea60cba3a53da815d"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "tester",
+            "method": "list",
+            "active": "1",
+            "hiddenName": "testResults",
+            "displayName": "Test Results",
+            "submenuHidden": "database",
+            "params": {
+                "editable": "display",
+                "show": "results"
+            },
+            "itemBefore": "testSeries",
+            "itemAfter": "requestSeries"
+        },
+        "command": {
+            "model": "page",
+            "index": "add Test Results Listing page",
+            "negates": ""
+        },
+        "hash": "3b1a8dc141d0aa055aa04a8c77fa054d"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "tester",
+            "method": "list",
+            "active": "1",
+            "hiddenName": "requestSeries",
+            "displayName": "Request Series",
+            "submenuHidden": "database",
+            "params": {
+                "editable": "display",
+                "show": "series"
+            },
+            "itemBefore": "testResults",
+            "itemAfter": "testRequests"
+        },
+        "command": {
+            "model": "page",
+            "index": "add Request Series Listing page",
+            "negates": "add title for Test Set Requests page"
+        },
+        "hash": "b994c4309a10b505533e9f7bbf0619d9"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateCaseSensitive",
+            "index": "discrepancy status was not title case",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "statuses",
+            "updateField": "displayName",
+            "updateValue": "Discrepancy",
+            "confirmField": "shortName",
+            "confirmValue": "DS"
+        },
+        "hash": "9342022a30491f691489344eeee2c36d"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "make Shipping Postal Code optional in order_description table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "order_description",
+            "updateField": "mandatory",
+            "updateValue": "0",
+            "confirmField": "fieldName",
+            "confirmValue": "Shipping Postal Code"
+        },
+        "hash": "6a349891fd8677371a63dceaed85c490"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "add setDate field to tallies table to keep time an RC Log was created",
+            "negates": "add setDate field to tallies table"
+        },
+        "queryInfo": {
+            "table": "tallies",
+            "fieldName": "setDate"
+        },
+        "customQuery": [
+            "ALTER TABLE tallies ADD setDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP"
+        ],
+        "hash": "51639933dcdaa516a6702541f73ea181"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "add Search Client Cartons menu to Client men",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "pages",
+            "updateField": "clientAccess",
+            "updateValue": "1",
+            "confirmField": "hiddenName",
+            "confirmValue": "searchCartons"
+        },
+        "hash": "26fc7dc7241d416c2228844b0b22d425"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "drop active field from pages table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "pages",
+            "dropField": "active"
+        },
+        "hash": "4f1408d6ab96bd6629618566be1f0f5d"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "containers",
+            "method": "search",
+            "active": null,
+            "hiddenName": "searchContainerSKUs",
+            "displayName": "Search Container SKUs",
+            "submenuHidden": "searchData",
+            "params": {
+                "show": "sku"
+            },
+            "itemBefore": "searchBillOfLadings",
+            "itemAfter": null
+        },
+        "command": {
+            "model": "page",
+            "index": "add Search Container SKUs table to Search Data menu",
+            "negates": ""
+        },
+        "hash": "1cbe124571c3ecd9fdc840e848a42b99"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "add Search Container SKUs page menu to Client men",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "pages",
+            "updateField": "clientAccess",
+            "updateValue": "1",
+            "confirmField": "hiddenName",
+            "confirmValue": "searchContainerSKUs"
+        },
+        "hash": "d61321950527a5534a949ec703bbc6ed"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "orders",
+            "method": "shippingReports",
+            "active": "1",
+            "hiddenName": "shippingReports",
+            "displayName": "Shipping Reports",
+            "submenuHidden": "administration",
+            "itemBefore": "generateBillOfLadingLabels",
+            "itemAfter": null
+        },
+        "command": {
+            "model": "page",
+            "index": "add Shipping Report to Administration menu",
+            "negates": ""
+        },
+        "hash": "e9647228959f7bf0c4f1842e1993c3b0"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "add Shipping Report page menu to Client menu",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "pages",
+            "updateField": "clientAccess",
+            "updateValue": "1",
+            "confirmField": "hiddenName",
+            "confirmValue": "shippingReports"
+        },
+        "hash": "f42f298ccbf650bcc41da3e5f9b17956"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Add container_notes table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "container_notes"
+        },
+        "customQuery": [
+            "CREATE TABLE container_notes  ( ",
+            "    id INT(11) NOT NULL AUTO_INCREMENT , ",
+            "    recNum INT(8) NOT NULL , ",
+            "    vendorID INT(5) NOT NULL ,",
+            "    clientNotes VARCHAR(255) NULL DEFAULT NULL ,",
+            "    PRIMARY KEY (id)",
+            ") ENGINE = InnoDB  CHARACTER SET utf8 COLLATE utf8_general_ci;"
+        ],
+        "hash": "bc60b769a048e43f811de3de37f134a1"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "Update client access to Search received containers page",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "pages",
+            "updateField": "clientAccess",
+            "updateValue": "1",
+            "confirmField": "hiddenName",
+            "confirmValue": "searchReceivedContainers"
+        },
+        "hash": "198937f8b58d84c8bdca87728a7b4a2a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateRowField",
+            "index": "Add client access to Search Orders page",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "pages",
+            "updateField": "clientAccess",
+            "updateValue": "1",
+            "confirmField": "hiddenName",
+            "confirmValue": "searchOrders"
+        },
+        "hash": "76ed1afc095db60a7f8a50ba44443854"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Add order_notes table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "order_notes"
+        },
+        "customQuery": [
+            "CREATE TABLE order_notes ( ",
+            "    id INT(8) NOT NULL AUTO_INCREMENT , ",
+            "    scanordernumber VARCHAR(20) NOT NULL , ",
+            "    vendorID INT(5) NOT NULL ,",
+            "    clientNotes VARCHAR(255) NULL DEFAULT NULL ,",
+            "    PRIMARY KEY (id)",
+            ") ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;"
+        ],
+        "hash": "339d72db8304cba644bd252e1b7a0b6c"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change the scanordernumber field to orderID field",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "=",
+                "value": "INT(10)"
+            }
+        ],
+        "queryInfo": {
+            "table": "order_notes",
+            "fieldName": "orderID"
+        },
+        "customQuery": [
+            "ALTER TABLE order_notes CHANGE scanordernumber orderID INT(10) NOT NULL;"
+        ],
+        "hash": "3aa211ffb607e2bba095dffe1ac00b68"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "Drop the vendorID field from container_notes table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "container_notes",
+            "dropField": "vendorID"
+        },
+        "hash": "ee87af2986b4f82b5eb916c0c83b4e2e"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "Drop vendorID field from order_notes",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "order_notes",
+            "dropField": "vendorID"
+        },
+        "hash": "a90c5193b9060f2057f9e3005cecf166"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add warehouse_id key to receivings table ",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "warehouse_id",
+            "tableName": "receivings",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE receivings",
+            "ADD KEY warehouse_id (warehouse_id)"
+        ],
+        "hash": "5e5014a1982f61df4162aa3549cadda2"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add client_id key to receivings table ",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "client_id",
+            "tableName": "receivings",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE receivings",
+            "ADD KEY client_id (client_id)"
+        ],
+        "hash": "a634f8ed8bc65ab99d7572d8e358315f"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add statusID key to receivings table ",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "statusID",
+            "tableName": "receivings",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE receivings",
+            "ADD KEY statusID (statusID)"
+        ],
+        "hash": "6482f748aeb47597b83f30192681ca5b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add file_id key to receiving_attachment table ",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "file_id",
+            "tableName": "receiving_attachment",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE receiving_attachment",
+            "ADD KEY file_id (file_id)"
+        ],
+        "hash": "a9c8bc39b50fe23a16bc22057fecff66"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add receiving_id key to receiving_attachment table ",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "receiving_id",
+            "tableName": "receiving_attachment",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE receiving_attachment",
+            "ADD KEY receiving_id (receiving_id)"
+        ],
+        "hash": "a77acc06ae24829523f4c7d9376dafa8"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add receiving_id key to receiving_containers table ",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "receiving_id",
+            "tableName": "receiving_containers",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE receiving_containers",
+            "ADD KEY receiving_id (receiving_id)"
+        ],
+        "hash": "05b441124720fe8ee2c26f296c18e52d"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index to container_notes table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "recNum",
+            "tableName": "container_notes",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE container_notes ADD INDEX(recNum);"
+        ],
+        "hash": "6326b90fd6353b3cce3c104e820acbda"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index to order_notes table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "orderID",
+            "tableName": "order_notes",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE order_notes ADD INDEX(orderID);"
+        ],
+        "hash": "fecffb96ff1dbe48595ffabcad924b31"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateJoinRow",
+            "index": "remove Receiving Invoices page from Invoices submenu",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "submenu_pages",
+            "joinTable": "pages",
+            "tableOn": "pageID",
+            "joinOn": "id",
+            "updateField": "active",
+            "updateValue": "0",
+            "searchField": "active",
+            "searchValue": "1",
+            "joinField": "hiddenName",
+            "joinValue": "receivingInvoices"
+        },
+        "hash": "1d88a21bf2761cec0c011efdf1c173c0"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateJoinRow",
+            "index": "remove Storage Invoices page from Invoices submenu",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "submenu_pages",
+            "joinTable": "pages",
+            "tableOn": "pageID",
+            "joinOn": "id",
+            "updateField": "active",
+            "updateValue": "0",
+            "searchField": "active",
+            "searchValue": "1",
+            "joinField": "hiddenName",
+            "joinValue": "storageInvoices"
+        },
+        "hash": "a360b2cfd86dd6fdc4d42e0be4c32e86"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateJoinRow",
+            "index": "remove Order Processing Invoices page from Invoices submenu",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "submenu_pages",
+            "joinTable": "pages",
+            "tableOn": "pageID",
+            "joinOn": "id",
+            "updateField": "active",
+            "updateValue": "0",
+            "searchField": "active",
+            "searchValue": "1",
+            "joinField": "hiddenName",
+            "joinValue": "orderProcessingInvoices"
+        },
+        "hash": "4d212156b947d4d17d021056600e84ac"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateJoinRow",
+            "index": "remove Work Orders Invoices page from Invoices submenu",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "submenu_pages",
+            "joinTable": "pages",
+            "tableOn": "pageID",
+            "joinOn": "id",
+            "updateField": "active",
+            "updateValue": "0",
+            "searchField": "active",
+            "searchValue": "1",
+            "joinField": "hiddenName",
+            "joinValue": "workOrdersInvoices"
+        },
+        "hash": "6728f9a8560ad0f4035148cdc22135c9"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateJoinRow",
+            "index": "remove Client Costs page from Invoices submenu",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "submenu_pages",
+            "joinTable": "pages",
+            "tableOn": "pageID",
+            "joinOn": "id",
+            "updateField": "active",
+            "updateValue": "0",
+            "searchField": "active",
+            "searchValue": "1",
+            "joinField": "hiddenName",
+            "joinValue": "clientCosts"
+        },
+        "hash": "82b4a6b9c3539760b34834cd82f845f7"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropField",
+            "index": "drop subMenuID field from pages table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "pages",
+            "dropField": "subMenuID"
+        },
+        "hash": "788c79125fd43e7b4d4cc8d787fdbfaf"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "red": "0",
+            "class": "invoices",
+            "method": "list",
+            "active": "1",
+            "hiddenName": "listInvoices",
+            "displayName": "List Invoices",
+            "submenuHidden": "invoice",
+            "itemBefore": "clientCosts",
+            "itemAfter": null
+        },
+        "command": {
+            "model": "page",
+            "index": "add List Invoices page to Invoices submenu",
+            "negates": ""
+        },
+        "hash": "6eeb9fa666d593966bff3f0ac784df91"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Table structure for table charge_cd_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "charge_cd_mstr"
+        },
+        "customQuery": [
+            "CREATE TABLE IF NOT EXISTS charge_cd_mstr (",
+            "    chg_cd_id int(4) NOT NULL AUTO_INCREMENT,",
+            "    chg_cd varchar(50) NOT NULL,",
+            "    chg_cd_des varchar(250) NOT NULL,",
+            "    chg_cd_type varchar(10) NOT NULL,",
+            "    chg_cd_uom varchar(10) NOT NULL,",
+            "    chg_cd_sts varchar(10) NOT NULL,",
+            "    disp_ord int(4) NOT NULL,",
+            "    create_by varchar(50) NOT NULL,",
+            "    create_dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,",
+            "    update_by varchar(50) DEFAULT NULL,",
+            "    update_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    status varchar(1) NOT NULL,",
+            "    PRIMARY KEY (chg_cd_id),",
+            "    UNIQUE KEY chg_cd (chg_cd)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;"
+        ],
+        "hash": "26fa2e3349f74896de87c315039e2276"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Table structure for table customer_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "customer_mstr"
+        },
+        "customQuery": [
+            "CREATE TABLE IF NOT EXISTS customer_mstr (",
+            "    cust_id int(5) NOT NULL AUTO_INCREMENT,",
+            "    cust_cd varchar(50) NOT NULL,",
+            "    cust_type varchar(25) NOT NULL,",
+            "    cust_nm varchar(25) NOT NULL,",
+            "    bill_to_add1 varchar(250) NOT NULL,",
+            "    bill_to_add2 varchar(50) DEFAULT NULL,",
+            "    bill_to_state varchar(50) NOT NULL,",
+            "    bill_to_cnty varchar(50) NOT NULL,",
+            "    bill_to_zip varchar(5) NOT NULL,",
+            "    bill_to_contact varchar(250) NOT NULL,",
+            "    ship_to_add1 varchar(250) NOT NULL,",
+            "    ship_to_add2 varchar(250) DEFAULT NULL,",
+            "    ship_to_state varchar(50) NOT NULL,",
+            "    ship_to_cnty varchar(50) NOT NULL,",
+            "    ship_to_zip varchar(5) NOT NULL,",
+            "    net_terms varchar(10) NOT NULL,",
+            "    create_by varchar(50) NOT NULL,",
+            "    create_dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,",
+            "    update_by varchar(50) DEFAULT NULL,",
+            "    update_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    status varchar(1) NOT NULL,",
+            "   PRIMARY KEY (cust_id)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=10001;"
+        ],
+        "hash": "7d77927204b776b0217f34859f98b0bf"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Table structure for table invoice_cost",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "invoice_cost"
+        },
+        "customQuery": [
+            "CREATE TABLE IF NOT EXISTS invoice_cost (",
+            "    inv_cost_id int(6) NOT NULL AUTO_INCREMENT,",
+            "    cust_id int(5) NOT NULL,",
+            "    chg_cd_id int(4) NOT NULL,",
+            "    chg_cd_cur varchar(10) NOT NULL,",
+            "    chg_cd_price double(6,2) NOT NULL,",
+            "    create_by varchar(50) NOT NULL,",
+            "    create_dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,",
+            "    update_by varchar(50) DEFAULT NULL,",
+            "    update_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    status varchar(1) NOT NULL,",
+            "    PRIMARY KEY (inv_cost_id)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;"
+        ],
+        "hash": "22359cc6bf1f704a21247db65cd6aa04"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Table structure for table invoice_dtls",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "invoice_dtls"
+        },
+        "customQuery": [
+            "CREATE TABLE IF NOT EXISTS invoice_dtls (",
+            "    inv_id int(8) NOT NULL AUTO_INCREMENT,",
+            "    wh_id int(4) NOT NULL,",
+            "    cust_id int(5) NOT NULL,",
+            "    inv_num int(10) DEFAULT NULL,",
+            "    chg_cd_id int(4) NOT NULL,",
+            "    chg_cd_desc varchar(50) NOT NULL,",
+            "    chg_cd_qty int(4) DEFAULT NULL,",
+            "    chg_cd_uom varchar(10) DEFAULT NULL,",
+            "    chg_cd_price double(6,2) NOT NULL,",
+            "    chg_cd_cur varchar(10) NOT NULL,",
+            "    chg_cd_amt double(6,2) NOT NULL,",
+            "    create_by varchar(50) NOT NULL,",
+            "    create_dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,",
+            "    update_by varchar(50) DEFAULT NULL,",
+            "    update_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    status varchar(1) NOT NULL,",
+            "    PRIMARY KEY (inv_id)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;"
+        ],
+        "hash": "8cac2e4f35d25cbc7c8f403a8fc0676e"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Table structure for table invoice_hdr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "invoice_hdr"
+        },
+        "customQuery": [
+            "CREATE TABLE IF NOT EXISTS invoice_hdr (",
+            "    inv_id int(8) NOT NULL AUTO_INCREMENT,",
+            "    wh_id int(4) NOT NULL,",
+            "    cust_id int(5) NOT NULL,",
+            "    inv_num int(10) DEFAULT NULL,",
+            "    inv_dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,",
+            "    inv_type varchar(10) NOT NULL,",
+            "    inv_cur varchar(10) NOT NULL,",
+            "    inv_amt int(6) NOT NULL,",
+            "    inv_tax double(6,2) NOT NULL,",
+            "    inv_sts varchar(1) NOT NULL,",
+            "    inv_org_id int(8) DEFAULT NULL,",
+            "    inv_org int(10) DEFAULT NULL,",
+            "    inv_paid_sts varchar(1) DEFAULT NULL,",
+            "    inv_paid_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    inv_paid_typ varchar(10) DEFAULT NULL,",
+            "    inv_paid_ref varchar(50) NOT NULL,",
+            "    cust_ref varchar(10) NOT NULL,",
+            "    net_terms varchar(10) NOT NULL,",
+            "    bill_to_add1 varchar(250) NOT NULL,",
+            "    bill_to_add2 varchar(250) NOT NULL,",
+            "    bill_to_state varchar(50) NOT NULL,",
+            "    bill_to_cnty varchar(50) NOT NULL,",
+            "    bill_to_zip varchar(5) NOT NULL,",
+            "    bill_to_contact varchar(250) NOT NULL,",
+            "    create_by varchar(50) NOT NULL,",
+            "    create_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    update_by varchar(50) DEFAULT NULL,",
+            "    update_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    status varchar(1) NOT NULL,",
+            "    PRIMARY KEY (inv_id),",
+            "    UNIQUE KEY inv_num (inv_num)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;"
+        ],
+        "hash": "0f5b642e8affcf6ecd852f4c4af73926"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Table structure for table invoice_sum",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "invoice_sum"
+        },
+        "customQuery": [
+            "CREATE TABLE IF NOT EXISTS invoice_sum (",
+            "    inv_id int(8) NOT NULL AUTO_INCREMENT,",
+            "    cust_id int(5) NOT NULL,",
+            "    inv_num int(10) DEFAULT NULL,",
+            "    check_num int(10) DEFAULT NULL,",
+            "    inv_net_ord varchar(10) DEFAULT NULL,",
+            "    inv_dis double(2,2) DEFAULT NULL,",
+            "    inv_freight double(6,2) DEFAULT NULL,",
+            "    inv_tax double(6,2) DEFAULT NULL,",
+            "    inv_terms varchar(250) DEFAULT NULL,",
+            "    create_by varchar(50) NOT NULL,",
+            "    create_dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,",
+            "    update_by varchar(50) DEFAULT NULL,",
+            "    update_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    status varchar(1) NOT NULL,",
+            "    PRIMARY KEY (inv_id),",
+            "    UNIQUE KEY inv_num (inv_num)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;"
+        ],
+        "hash": "ac854bef53631af2513fb88f48d77aea"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Table structure for table invoice_log",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "invoice_log"
+        },
+        "customQuery": [
+            "CREATE TABLE IF NOT EXISTS invoice_log (",
+            "    inv_id int(8) NOT NULL AUTO_INCREMENT,",
+            "    inv_num int(10) DEFAULT NULL,",
+            "    inv_type varchar(10) NOT NULL,",
+            "    inv_dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,",
+            "    inv_acct_flg tinyint(1) NOT NULL,",
+            "    inv_acct_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    inv_edi_flg tinyint(1) NOT NULL,",
+            "    inv_edi_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    create_by varchar(50) NOT NULL,",
+            "    create_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    update_by varchar(50) DEFAULT NULL,",
+            "    update_dt timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',",
+            "    status varchar(1) NOT NULL,",
+            "    PRIMARY KEY (inv_id),",
+            "    UNIQUE KEY inv_num (inv_num)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;"
+        ],
+        "hash": "e995411887726482412c73b11641facc"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "Add bill_to_city field in customer_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "bill_to_city"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr ADD bill_to_city VARCHAR(50) NOT NULL AFTER bill_to_state;"
+        ],
+        "hash": "cae5772df58c2e465f81305ce110ad21"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "Add ship to city field in customer_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "ship_to_city"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr ADD ship_to_city VARCHAR(50) NOT NULL AFTER ship_to_state;"
+        ],
+        "hash": "7405b9837a1dc7072347561d641b8015"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "Add bill_to_city to  invoice_hdr table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "bill_to_city"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr ADD bill_to_city VARCHAR(50) NOT NULL AFTER bill_to_state;"
+        ],
+        "hash": "221391e04cbb8332664e4b5458f28bf8"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_dt field in customer_ctc",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_ctc",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_ctc CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "7218a54fc0732fda4996693c9e745bbb"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_dt field structure in customer_ctc",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_ctc",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_ctc CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "f953760f20f1973367ff73daf4f958b0"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_dt field structure in customer_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "6c387a4dc8a7944d067130cb0f51b35b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_dt field structure in customer_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "fdf3bb6fa206432212797e3ef615310a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_dt field structure in charge_cd_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "charge_cd_mstr",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE charge_cd_mstr CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "f0bc6e07ff3316557a183a96b7a0e3e1"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_dt field structure in charge_cd_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "charge_cd_mstr",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE charge_cd_mstr CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "2ca0d5e9ed31991e65e30f5957ccaf20"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_dt field structure in invoice_cost",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_cost",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "fec27af244cbc5fe31d6055094ca57df"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_dt field structure in invoice_cost",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_cost",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "85827939e09dddeb53e21d92f5f18bf5"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the inv_dt field structure in invoice_log",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_log",
+            "fieldName": "inv_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_log CHANGE inv_dt inv_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "446ad2d292c3593da11276c316760edd"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_dt field structure in invoice_log",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_log",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_log CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "1632f856937a60dbb5d8e04d32b3eb20"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the inv_dt field structure in invoice_hdr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "inv_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE inv_dt inv_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "8f71da6c11bef8ab6d2b942b0a2a585d"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_dt field structure in invoice_hdr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "954c24eb290299bae412a243fdca56d3"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_dt field structure in invoice_hdr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "3bb46e7fd68d21997817bcbe2e6597f5"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_dt field structure in invoice_dtls",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_dtls",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "2d14df563141ff2c75a0e60940d6084a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_dt field structure in invoice_dtls",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_dtls",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "244e0e134ec4e4931162028844faa35b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_dt field structure in invoice_sum",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_sum",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "da9f81bdc12d16ae0a3bcb7141350cb9"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_dt field structure in invoice_sum",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_sum",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "3318b3c23ad103a2ecd80b076d5f9eb5"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_by field structure in invoice_sum",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_sum",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "c81745ea4fc705f2f1de67cab32592e8"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_by field structure in invoice_sum",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_sum",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "5ab3ff6695cfcf33b8ad2aacd8c79707"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_by field structure in invoice_dtls",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_dtls",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "3ba2786c4bcb4ee745840e3ad0f8b1fa"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_by field structure in invoice_dtls",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_dtls",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "69b4ace8c08080e31566f57cbfa6b233"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_by field structure in invoice_hdr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "8acfe15b8ff3869f01e9960bd1ea7e7c"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_by field structure in invoice_hdr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "833b2418184ef3d6e291b3fde51d4bf5"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_by field structure in invoice_log",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_log",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_log CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "618e89cfd25677e94a1e30be6baf1657"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_by field structure in invoice_log",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_log",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_log CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "c9980a0aab9f9f8430e3d05b153bbec4"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_by field structure in invoice_cost",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_cost",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "6a8582cb3e5f01249a0b64347063b7ff"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_by field structure in invoice_cost",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_cost",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "b235dfb04bff880ef062d23e2e0269a9"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_by field structure in charge_cd_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "charge_cd_mstr",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE charge_cd_mstr CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "4ea4d0db0f51947484b969af19469daf"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_by field structure in charge_cd_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "charge_cd_mstr",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE charge_cd_mstr CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "abd33fed871c6a5cd6a7c5d7ded15bd1"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_by field structure in customer_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "031a29bb755b99d9cfd3a29d2fcf2140"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_by field structure in customer_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "02b98be05dc4dcd0f2e546a695ef30b4"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the create_by field structure in customer_ctc",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_ctc",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_ctc CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "49a8455f065ec68508739acc7e2a8e48"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the update_by field structure in customer_ctc",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_ctc",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_ctc CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "9538f684df30a9cebc07b7215403cf6e"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the status field structure in invoice_sum",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_sum",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum CHANGE status status VARCHAR(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "732ea48b504dafb902726e63c21db507"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the status field structure in invoice_dtls",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_dtls",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls CHANGE status status VARCHAR(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "129e84a92b3afa5db88341a8f0978289"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the status field structure in invoice_hdr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE status status VARCHAR(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "2f5a7d620bb79bee7e726504b70e8b76"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the status field structure in invoice_log",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_log",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_log CHANGE status status VARCHAR(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "b8deed5a91954bbd40c1fdc0716a4f71"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the status field structure in invoice_cost",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_cost",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost CHANGE status status VARCHAR(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "94a7a94287545528b276a48cd4542100"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the status field structure in charge_cd_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "charge_cd_mstr",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE charge_cd_mstr CHANGE status status VARCHAR(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "739283a962fdabbd0026b98743a5d106"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the status field structure in customer_mstr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr CHANGE status status VARCHAR(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "0b7d5864b3797a0a3420c069bf5a16fe"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Modify the status field structure in customer_ctc",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "customer_ctc",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_ctc CHANGE status status VARCHAR(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "b0fd2f3f43f2f85d6a736e719e2211b0"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Add the wh_id field structure in invoice_sum",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "invoice_sum",
+            "fieldName": "wh_id"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum ADD wh_id INT(4) NOT NULL AFTER inv_id;"
+        ],
+        "hash": "01cdca9dc1e6d429af6c660eae3c5463"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for wh_id field in invoice_sum",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "wh_id",
+            "tableName": "invoice_sum",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum ADD INDEX(wh_id);"
+        ],
+        "hash": "c9d2a86389fa53b51ccaa9716d219f4c"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for cust_id field in invoice_sum",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "cust_id",
+            "tableName": "invoice_sum",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum ADD INDEX(cust_id);"
+        ],
+        "hash": "db31877b54eb9ed7276cb07004e04458"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for inv_num field in invoice_sum",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "inv_num",
+            "tableName": "invoice_sum",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum ADD INDEX(inv_num);"
+        ],
+        "hash": "145b839eeee25233e0909b33b52ed321"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for inv_num field in invoice_log",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "inv_num",
+            "tableName": "invoice_log",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_log ADD INDEX(inv_num);"
+        ],
+        "hash": "63d14ce7721431ff3711eb4095406d0e"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for wh_id field in invoice_hdr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "wh_id",
+            "tableName": "invoice_hdr",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr ADD INDEX(wh_id);"
+        ],
+        "hash": "7591ec588c4c78697e8eb8d67b6c8353"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for cust_id field in invoice_hdr",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "cust_id",
+            "tableName": "invoice_hdr",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr ADD INDEX(cust_id);"
+        ],
+        "hash": "8a351fa97d439e5fdfa33d14b12bae08"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for wh_id field in invoice_dtls",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "wh_id",
+            "tableName": "invoice_dtls",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls ADD INDEX(wh_id);"
+        ],
+        "hash": "904b9424ae9380d01a6e9636ce63d1ec"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for cust_id field in invoice_dtls",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "cust_id",
+            "tableName": "invoice_dtls",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls ADD INDEX(cust_id);"
+        ],
+        "hash": "0981c964b2c703dd5f6c372ff632660c"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for inv_num field in invoice_dtls",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "inv_num",
+            "tableName": "invoice_dtls",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls ADD INDEX(inv_num);"
+        ],
+        "hash": "b1dc22b2825a85a54fb0a66fa8cdac9a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for chg_cd_id field in invoice_dtls",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "chg_cd_id",
+            "tableName": "invoice_dtls",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls ADD INDEX(chg_cd_id);"
+        ],
+        "hash": "7d1c569a59d63c91613a8b859c7074b2"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for cust_id field in invoice_cost",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "cust_id",
+            "tableName": "invoice_cost",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost ADD INDEX(cust_id);"
+        ],
+        "hash": "146ba2df66a91ca2a795c0c484aa28db"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for chg_cd_id field in invoice_cost",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "chg_cd_id",
+            "tableName": "invoice_cost",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost ADD INDEX(chg_cd_id);"
+        ],
+        "hash": "f17c744e2b411910abad376aff2a6424"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "Add index for cust_id field customer_ctc",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "cust_id",
+            "tableName": "customer_ctc",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_ctc ADD INDEX(cust_id);"
+        ],
+        "hash": "46a51e119d9c5f21e5436d8f31f70964"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "add inv_his_rec table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "inv_his_rec"
+        },
+        "customQuery": [
+            "CREATE TABLE inv_his_rec (",
+            "    id BIGINT(11) NOT NULL AUTO_INCREMENT,",
+            "    inv_id INT(8) NOT NULL,",
+            "    rec_num INT(8) NOT NULL,",
+            "    inv_sts TINYINT(1) NOT NULL DEFAULT 1,",
+            "    PRIMARY KEY (id),",
+            "    KEY inv_id (inv_id),",
+            "    KEY rec_num (rec_num)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
+        ],
+        "hash": "b75c2eba14eabda275c69351298439dc"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "add inv_his_ord_prc table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "inv_his_ord_prc"
+        },
+        "customQuery": [
+            "CREATE TABLE inv_his_ord_prc (",
+            "    id BIGINT(11) NOT NULL AUTO_INCREMENT,",
+            "    inv_id INT(8) NOT NULL,",
+            "    ord_id BIGINT(10) NOT NULL,",
+            "    inv_sts TINYINT(1) NOT NULL DEFAULT 1,",
+            "    PRIMARY KEY (id),",
+            "    KEY inv_id (inv_id),",
+            "    KEY ord_id (ord_id)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
+        ],
+        "hash": "a6aed8ee09535f9e93dabcc0b6a12fd2"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "add inv_his_wo table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "inv_his_wo"
+        },
+        "customQuery": [
+            "CREATE TABLE inv_his_wo (",
+            "    id BIGINT(11) NOT NULL AUTO_INCREMENT,",
+            "    inv_id INT(8) NOT NULL,",
+            "    wo_id BIGINT(10) NOT NULL,",
+            "    inv_sts TINYINT(1) NOT NULL DEFAULT 1,",
+            "    PRIMARY KEY (id),",
+            "    KEY inv_id (inv_id),",
+            "    KEY wo_id (wo_id)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
+        ],
+        "hash": "34cc087207032e9f2bfaa90792ded835"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "add wo_hdr table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "wo_hdr"
+        },
+        "customQuery": [
+            "CREATE TABLE wo_hdr (",
+            "    woID BIGINT(11) NOT NULL AUTO_INCREMENT,",
+            "    orderID BIGINT(11) NOT NULL,",
+            "    requestDate DATETIME NOT NULL,",
+            "    completedDate DATETIME NOT NULL,",
+            "    clientWorkOrderNumber VARCHAR(30) NOT NULL,",
+            "    workOrderNumber VARCHAR(10) NOT NULL,",
+            "    relatedCustomer VARCHAR(50) NULL DEFAULT NULL,",
+            "    shipDate DATETIME NOT NULL,",
+            "    requestedBy VARCHAR(50) NULL DEFAULT NULL,",
+            "    workDetails VARCHAR(255) NULL DEFAULT NULL,",
+            "    statusID TINYINT(1) NOT NULL DEFAULT 1,",
+            "    create_by VARCHAR(50) NOT NULL,",
+            "    create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+            "    update_by VARCHAR(50) NOT NULL,",
+            "    update_dt DATETIME NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,",
+            "    status VARCHAR(1) NOT NULL DEFAULT 'i',",
+            "    PRIMARY KEY (woID),",
+            "    UNIQUE KEY orderID (orderID),",
+            "    UNIQUE KEY workOrderNumber (workOrderNumber)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
+        ],
+        "hash": "384f89b989c5a530aee5abcc689ecb1f"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "add wo_dtls table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "wo_dtls"
+        },
+        "customQuery": [
+            "CREATE TABLE wo_dtls (",
+            "    id BIGINT(11) NOT NULL AUTO_INCREMENT,",
+            "    woID BIGINT(11) NOT NULL,",
+            "    orderID BIGINT(11) NOT NULL,",
+            "    ccID INT(4) NOT NULL,",
+            "    quantity INT(6) NULL DEFAULT NULL,",
+            "    PRIMARY KEY (id),",
+            "    KEY woID (woID),",
+            "    KEY orderID (orderID),",
+            "    KEY ccID (ccID)",
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
+        ],
+        "hash": "0b78078c72b363e0d750a6bfffed978e"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "add wrk_hrs_rec table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "wrk_hrs_rec"
+        },
+        "customQuery": [
+            "CREATE TABLE wrk_hrs_rec (",
+            "    id BIGINT(11) NOT NULL AUTO_INCREMENT,",
+            "    dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+            "    rec_num INT(8) NOT NULL,",
+            "    amount DECIMAL(6, 2) NOT NULL,",
+            "    ctg ENUM('a', 'e') NOT NULL,",
+            "    create_by VARCHAR(50) NOT NULL,",
+            "    PRIMARY KEY (id),",
+            "    KEY rec_num (rec_num)",
+            ") ENGINE=InnoDB"
+        ],
+        "hash": "ec7e9fe5b8354f399562f4416494165f"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "add wrk_hrs_ord_prc table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "wrk_hrs_ord_prc"
+        },
+        "customQuery": [
+            "CREATE TABLE wrk_hrs_ord_prc (",
+            "    id BIGINT(11) NOT NULL AUTO_INCREMENT,",
+            "    dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+            "    rec_num INT(8) NOT NULL,",
+            "    amount DECIMAL(6, 2) NOT NULL,",
+            "    ctg ENUM('a', 'e') NOT NULL,",
+            "    create_by VARCHAR(50) NOT NULL,",
+            "    PRIMARY KEY (id),",
+            "    KEY rec_num (rec_num)",
+            ") ENGINE=InnoDB"
+        ],
+        "hash": "1f26e94874be9b7c486cb75af015d9ae"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "add wrks_hr_wo table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "wrks_hr_wo"
+        },
+        "customQuery": [
+            "CREATE TABLE wrks_hr_wo (",
+            "    id BIGINT(11) NOT NULL AUTO_INCREMENT,",
+            "    dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+            "    rec_num INT(8) NOT NULL,",
+            "    amount DECIMAL(6, 2) NOT NULL,",
+            "    ctg ENUM('a', 'e') NOT NULL,",
+            "    create_by VARCHAR(50) NOT NULL,",
+            "    PRIMARY KEY (id),",
+            "    KEY rec_num (rec_num)",
+            ") ENGINE=InnoDB"
+        ],
+        "hash": "a2d26398ff4d0071bf147b1d41b5009e"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "make wrk_hrs_rcv of a new stucture",
+            "negates": "add wrk_hrs_rec table"
+        },
+        "queryInfo": {
+            "tableName": "wrk_hrs_rcv"
+        },
+        "customQuery": [
+            "CREATE TABLE wrk_hrs_rcv (",
+            "    id BIGINT(11) NOT NULL AUTO_INCREMENT,",
+            "    dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+            "    rcv_num INT(8) NOT NULL,",
+            "    amount DECIMAL(6, 2) NOT NULL,",
+            "    ctg ENUM('a', 'e') NOT NULL DEFAULT 'e',",
+            "    create_by INT(4) NOT NULL,",
+            "    PRIMARY KEY (id),",
+            "    KEY rcv_num (rcv_num),",
+            "    KEY create_by (create_by)",
+            ") ENGINE=InnoDB"
+        ],
+        "hash": "9ca803daaa8e715d6a6391998d18ddae"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "make wrk_hrs_ord_prc of a new stucture",
+            "negates": "add wrk_hrs_ord_prc table"
+        },
+        "queryInfo": {
+            "tableName": "wrk_hrs_ord_prc"
+        },
+        "customQuery": [
+            "CREATE TABLE wrk_hrs_ord_prc (",
+            "    id BIGINT(11) NOT NULL AUTO_INCREMENT,",
+            "    dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+            "    scan_ord_nbr VARCHAR(10) NOT NULL,",
+            "    amount DECIMAL(6, 2) NOT NULL,",
+            "    ctg ENUM('a', 'e') NOT NULL DEFAULT 'e',",
+            "    create_by INT(4) NOT NULL,",
+            "    PRIMARY KEY (id),",
+            "    KEY scan_ord_nbr (scan_ord_nbr),",
+            "    KEY create_by (create_by)",
+            ") ENGINE=InnoDB"
+        ],
+        "hash": "751dec29c12055998ac484351e4f2c7e"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "make wrks_hr_wo of a new stucture",
+            "negates": "add wrks_hr_wo table"
+        },
+        "queryInfo": {
+            "tableName": "wrks_hr_wo"
+        },
+        "customQuery": [
+            "CREATE TABLE wrks_hr_wo (",
+            "    id BIGINT(11) NOT NULL AUTO_INCREMENT,",
+            "    dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+            "    wo_id BIGINT(10) NOT NULL,",
+            "    amount DECIMAL(6, 2) NOT NULL,",
+            "    ctg ENUM('a', 'e') NOT NULL DEFAULT 'e',",
+            "    create_by INT(4) NOT NULL,",
+            "    PRIMARY KEY (id),",
+            "    KEY wo_id (wo_id),",
+            "    KEY create_by (create_by)",
+            ") ENGINE=InnoDB"
+        ],
+        "hash": "0c6e8b1b35f78091ee64878e8fcd2699"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "make scan_ord_nbr field in scan_ord_nbr table INT(10) UNSIGNED ZEROFILL NOT NULL",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(10) unsigned zerofill"
+            },
+            {
+                "name": "Null",
+                "compare": "=",
+                "value": "YES"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "wrk_hrs_ord_prc",
+            "fieldName": "scan_ord_nbr"
+        },
+        "customQuery": [
+            "ALTER TABLE wrk_hrs_ord_prc CHANGE scan_ord_nbr scan_ord_nbr INT(10) UNSIGNED ZEROFILL NOT NULL"
+        ],
+        "hash": "86b14bc28c68eebe50b4c63c5aeab521"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addTable",
+            "index": "Create customer_ctc table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "customer_ctc"
+        },
+        "customQuery": [
+            " CREATE TABLE customer_ctc ( ",
+            " cust_ctc_id INT(8) NOT NULL AUTO_INCREMENT , ",
+            " cust_id INT(5) NOT NULL , ",
+            " ctc_dept VARCHAR(50) NOT NULL , ",
+            " ctc_nm VARCHAR(60) NOT NULL , ",
+            " ctc_dft BOOLEAN NOT NULL , ",
+            " ctc_ph VARCHAR(20) NOT NULL , ",
+            " ctc_eml VARCHAR(250) NOT NULL ,",
+            " create_by VARCHAR(50) NOT NULL ,",
+            " create_dt TIMESTAMP NOT NULL , ",
+            " update_by VARCHAR(50) NOT NULL , ",
+            " update_dt TIMESTAMP NOT NULL , ",
+            " status VARCHAR(1) NOT NULL ,",
+            " PRIMARY KEY (cust_ctc_id)",
+            " ) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;"
+        ],
+        "hash": "bb331a503b42054437a7da7ce2afc127"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Remove the ON UPDATE Timestamp to create_dt field in customer_ctc",
+            "negates": "Modify the create_dt field in customer_ctc"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "customer_ctc",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_ctc CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "7218a54fc0732fda4996693c9e745bbb"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Add ON UPDATE Timestamp to update_dt field in customer_ctc",
+            "negates": "Modify the update_dt field structure in customer_ctc"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": "on update CURRENT_TIMESTAMP"
+            }
+        ],
+        "queryInfo": {
+            "table": "customer_ctc",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_ctc CHANGE update_dt update_dt TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "07f1f795dbbae0077205f7b0e013dcc2"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Remove the ON UPDATE Timestamp on create_dt field in invoice_cost",
+            "negates": "Modify the create_dt field structure in invoice_cost"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_cost",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "fec27af244cbc5fe31d6055094ca57df"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Remove the ON UPDATE Timestamp on create_dt field in customer_mstr",
+            "negates": "Modify the create_dt field structure in customer_mstr"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "6c387a4dc8a7944d067130cb0f51b35b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Remove the ON UPDATE Timestamp on create_dt field in charge_cd_mstr ",
+            "negates": "Modify the create_dt field structure in charge_cd_mstr "
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "charge_cd_mstr",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE charge_cd_mstr  CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "f0bc6e07ff3316557a183a96b7a0e3e1"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Remove the ON UPDATE Timestamp on create_dt field in invoice_hdr",
+            "negates": "Modify the create_dt field structure in invoice_hdr"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "954c24eb290299bae412a243fdca56d3"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Remove the ON UPDATE Timestamp on create_dt field in invoice_dtls",
+            "negates": "Modify the create_dt field structure in invoice_dtls"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_dtls",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "2d14df563141ff2c75a0e60940d6084a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Remove the ON UPDATE Timestamp on create_dt field in invoice_sum",
+            "negates": "Modify the create_dt field structure in invoice_sum"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_sum",
+            "fieldName": "create_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum CHANGE create_dt create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "da9f81bdc12d16ae0a3bcb7141350cb9"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Add ON UPDATE Timestamp to update_dt field in customer_mstr",
+            "negates": "Modify the update_dt field structure in customer_mstr"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": "on update CURRENT_TIMESTAMP"
+            }
+        ],
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';",
+            ""
+        ],
+        "hash": "fdf3bb6fa206432212797e3ef615310a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Add ON UPDATE Timestamp to update_dt field in charge_cd_mstr",
+            "negates": "Modify the update_dt field structure in charge_cd_mstr"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": "on update CURRENT_TIMESTAMP"
+            }
+        ],
+        "queryInfo": {
+            "table": "charge_cd_mstr",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE charge_cd_mstr CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';",
+            ""
+        ],
+        "hash": "2ca0d5e9ed31991e65e30f5957ccaf20"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Add ON UPDATE Timestamp to update_dt field in invoice_cost",
+            "negates": "Modify the update_dt field structure in invoice_cost"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": "on update CURRENT_TIMESTAMP"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_cost",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';",
+            ""
+        ],
+        "hash": "85827939e09dddeb53e21d92f5f18bf5"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Add ON UPDATE Timestamp to update_dt field in invoice_log",
+            "negates": "Modify the update_dt field structure in invoice_log"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": "on update CURRENT_TIMESTAMP"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_log",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_log CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';",
+            ""
+        ],
+        "hash": "1632f856937a60dbb5d8e04d32b3eb20"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Add ON UPDATE Timestamp to update_dt field in invoice_hdr",
+            "negates": "Modify the update_dt field structure in invoice_hdr"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": "on update CURRENT_TIMESTAMP"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "3bb46e7fd68d21997817bcbe2e6597f5"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Add ON UPDATE Timestamp to update_dt field in invoice_dtls",
+            "negates": "Modify the update_dt field structure in invoice_dtls"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": "on update CURRENT_TIMESTAMP"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_dtls",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "244e0e134ec4e4931162028844faa35b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Add ON UPDATE Timestamp to update_dt field in invoice_sum",
+            "negates": "Modify the update_dt field structure in invoice_sum"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": "on update CURRENT_TIMESTAMP"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_sum",
+            "fieldName": "update_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum CHANGE update_dt update_dt TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';"
+        ],
+        "hash": "3318b3c23ad103a2ecd80b076d5f9eb5"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Remove the ON UPDATE Timestamp on create_dt field in invoice_hdr",
+            "negates": "Modify the inv_dt field structure in invoice_hdr"
+        },
+        "rowAssert": [
+            {
+                "name": "Extra",
+                "compare": "!=",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "inv_dt"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE inv_dt inv_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;"
+        ],
+        "hash": "8f71da6c11bef8ab6d2b942b0a2a585d"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change create_by field to integer in invoice_sum",
+            "negates": "Modify the create_by field structure in invoice_sum"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_sum",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "5c076180a0273a31bd3a79c3fddc3e95"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change create_by field to integer in invoice_dtls",
+            "negates": "Modify the create_by field structure in invoice_dtls"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_dtls",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "fccd48d7aea8a8c944eea3e58b3e471d"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change create_by field to integer in invoice_hdr",
+            "negates": "Modify the create_by field structure in invoice_hdr"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "7066df18d239198a88afa8a28703b979"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change create_by field to integer in invoice_log ",
+            "negates": "Modify the create_by field structure in invoice_log "
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_log",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_log  CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "d0fedf0e5d224da24b7fe4640194816b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change create_by field to integer in invoice_cost",
+            "negates": "Modify the create_by field structure in invoice_cost"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_cost",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost  CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "9da02dabb6f4f6c954b4fbd5fc6bc9fc"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change create_by field to integer in charge_cd_mstr",
+            "negates": "Modify the create_by field structure in charge_cd_mstr"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            }
+        ],
+        "queryInfo": {
+            "table": "charge_cd_mstr",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE charge_cd_mstr  CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "09ee06b85bbeeb87fff17f785363c451"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change create_by field to integer in customer_mstr",
+            "negates": "Modify the create_by field structure in customer_mstr"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            }
+        ],
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr  CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "b1aac510ff98956e649fe6ec8e81ae24"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change create_by field to integer in customer_ctc",
+            "negates": "Modify the create_by field structure in customer_ctc"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            }
+        ],
+        "queryInfo": {
+            "table": "customer_ctc",
+            "fieldName": "create_by"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_ctc CHANGE create_by create_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "248b4a29caed5a56f8f173d72eb45a91"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change update_by field to integer in invoice_sum",
+            "negates": "Modify the update_by field structure in invoice_sum"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_sum",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "5ab3ff6695cfcf33b8ad2aacd8c79707"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change update_by field to integer in invoice_dtls",
+            "negates": "Modify the update_by field structure in invoice_dtls"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_dtls",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "69b4ace8c08080e31566f57cbfa6b233"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change update_by field to integer in invoice_hdr",
+            "negates": "Modify the update_by field structure in invoice_hdr"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "833b2418184ef3d6e291b3fde51d4bf5"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change update_by field to integer in invoice_log",
+            "negates": "Modify the update_by field structure in invoice_log"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_log",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_log CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "c9980a0aab9f9f8430e3d05b153bbec4"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change update_by field to integer in invoice_cost",
+            "negates": "Modify the update_by field structure in invoice_cost"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_cost",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "b235dfb04bff880ef062d23e2e0269a9"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change update_by field to integer in charge_cd_mstr",
+            "negates": "Modify the update_by field structure in charge_cd_mstr"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            }
+        ],
+        "queryInfo": {
+            "table": "charge_cd_mstr",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE charge_cd_mstr CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "abd33fed871c6a5cd6a7c5d7ded15bd1"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change update_by field to integer in customer_mstr",
+            "negates": "Modify the update_by field structure in customer_mstr"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            }
+        ],
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "02b98be05dc4dcd0f2e546a695ef30b4"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change update_by field to integer in customer_ctc",
+            "negates": "Modify the update_by field structure in customer_ctc"
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "int(4)"
+            }
+        ],
+        "queryInfo": {
+            "table": "customer_ctc",
+            "fieldName": "update_by"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_ctc CHANGE update_by update_by INT(4) NULL DEFAULT NULL;"
+        ],
+        "hash": "9538f684df30a9cebc07b7215403cf6e"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change the status field default to 'i'  in invoice_sum",
+            "negates": "Modify the status field structure in invoice_sum"
+        },
+        "rowAssert": [
+            {
+                "name": "Default",
+                "compare": "!=",
+                "value": "i"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_sum",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_sum CHANGE status status VARCHAR(1) NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "01d70971e3d9dc3f172dcc85309d8b6b"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change the status field default to 'i'  in invoice_dtls",
+            "negates": "Modify the status field structure in invoice_dtls"
+        },
+        "rowAssert": [
+            {
+                "name": "Default",
+                "compare": "!=",
+                "value": "i"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_dtls",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_dtls CHANGE status status VARCHAR(1) NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "ee79238544332dd385e1a35d2bc063b8"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change the status field default to 'i'  in invoice_hdr",
+            "negates": "Modify the status field structure in invoice_hdr"
+        },
+        "rowAssert": [
+            {
+                "name": "Default",
+                "compare": "!=",
+                "value": "i"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_hdr",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_hdr CHANGE status status VARCHAR(1) NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "7bbb69b1e023d37ea549141a8ec0ff27"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change the status field default to 'i'  in invoice_log",
+            "negates": "Modify the status field structure in invoice_log"
+        },
+        "rowAssert": [
+            {
+                "name": "Default",
+                "compare": "!=",
+                "value": "i"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_log",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_log CHANGE status status VARCHAR(1) NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "653436e852f5a9a34d97da40e41a92ad"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change the status field default to 'i'  in invoice_cost",
+            "negates": "Modify the status field structure in invoice_cost"
+        },
+        "rowAssert": [
+            {
+                "name": "Default",
+                "compare": "!=",
+                "value": "i"
+            }
+        ],
+        "queryInfo": {
+            "table": "invoice_cost",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE invoice_cost CHANGE status status VARCHAR(1) NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "df3e8b492ea1d3f9f7cce60d31f0a39a"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change the status field default to 'i'  in charge_cd_mstr",
+            "negates": "Modify the status field structure in charge_cd_mstr"
+        },
+        "rowAssert": [
+            {
+                "name": "Default",
+                "compare": "!=",
+                "value": "i"
+            }
+        ],
+        "queryInfo": {
+            "table": "charge_cd_mstr",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE charge_cd_mstr CHANGE status status VARCHAR(1) NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "f32048e4f7d0ac34ef6b15b95d22abbd"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change the status field default to 'i'  in customer_mstr",
+            "negates": "Modify the status field structure in customer_mstr"
+        },
+        "rowAssert": [
+            {
+                "name": "Default",
+                "compare": "!=",
+                "value": "i"
+            }
+        ],
+        "queryInfo": {
+            "table": "customer_mstr",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_mstr CHANGE status status VARCHAR(1) NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "72a44bcdec78ddf82c8f34f14f61ea6f"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "Change the status field default to 'i'  in customer_ctc",
+            "negates": "Modify the status field structure in customer_ctc"
+        },
+        "rowAssert": [
+            {
+                "name": "Default",
+                "compare": "!=",
+                "value": "i"
+            }
+        ],
+        "queryInfo": {
+            "table": "customer_ctc",
+            "fieldName": "status"
+        },
+        "customQuery": [
+            "ALTER TABLE customer_ctc CHANGE status status VARCHAR(1) NOT NULL DEFAULT 'i';"
+        ],
+        "hash": "438f3f184fa15c373bd6f3f07b2cd19c"
+    }
+]

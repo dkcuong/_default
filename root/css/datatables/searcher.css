@@ -1,0 +1,30 @@
+#searcher{
+    border: 1px solid #eee;
+    overflow: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    margin: 10px 0;
+    padding: 3px;
+    background: #fcfcff;
+}
+
+#searcher td {
+    background: #f6f6f6;
+    vertical-align: top;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+#multiSearcherDisplay {
+    margin: 8px 8px 8px 0;
+    display: inline-block;
+}
+
+#searcherTable td {
+    vertical-align: top;
+}
+
+#searcherTableTitle {
+    font-weight: bold;
+}

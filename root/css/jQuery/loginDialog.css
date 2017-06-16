@@ -1,0 +1,9 @@
+#loginDialog {
+    display: none;    
+    line-height: 150%;
+}
+
+#loginDialogMessage {
+    padding: 10px 0;
+    
+}

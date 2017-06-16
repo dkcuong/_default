@@ -1,0 +1,62 @@
+body,
+.ui-helper-reset {
+    font-size: 13px;    
+}
+a {
+    text-decoration: none;
+}
+
+#accordion {
+    width: 280px;
+}
+
+iframe {
+    border: solid 1px #ccc;
+    width: 100%;
+    height: 100%;
+}
+
+.links {
+    cursor: pointer;
+}
+
+
+body {
+    font-family:arial,sans-serif;
+}
+
+.message,
+.failedMessage,
+.warningMessage,
+.successMessage {
+    border: 1px solid #999;
+    background: #f6f6f6;
+    padding: 2px 5px;
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.failedMessage {
+    border: 1px #d99 solid;
+    background: #ffe9e9;    
+}
+.warningMessage {
+    border: 1px #db6 solid;
+    background: #fff9e9;    
+}
+.successMessage {
+    border: 1px #9d9 solid;
+    background: #e9ffe9;    
+}
+
+.hidden {
+    display: none;
+}
+
+.blockDisplay {
+    display: block;    
+}
+
+.noWrap {
+    white-space: nowrap;
+}

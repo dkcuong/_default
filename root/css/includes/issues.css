@@ -1,0 +1,75 @@
+#reportIssue {
+    color: #ffffff;
+    font-weight: bold;
+    top: 63px;
+    position: relative;
+    float: right;
+    right: 20px;
+    text-transform: uppercase;
+    clear: right;
+    margin: 5px 0 5px 0;
+}
+
+#reportIssue a {
+    color: #ffffff;
+}
+
+#reportIssueDialog {
+    display: none;
+    padding: 0px;
+}
+
+#reportIssueHeader {
+    padding: 10px 10px 0px 10px;
+    background-color: #F7F7F9;
+}
+
+#reportIssueBody, #reportIssueFooter {
+    padding: 10px 10px 0px 10px;
+}
+
+.reportIssueHeaderTitle {
+    width: 100px;
+    display: inline-block;
+    padding: 2px 0px 2px 0px;
+}
+
+.reportIssueHeaderContent {
+    width: 254px;
+    display: inline-block;
+    padding: 2px 0px 2px 0px;
+}
+
+#reportIssueScreenshot {
+    height: 180px;
+    width: 240px;
+}
+
+#reportIssueEmail, #reportIssuePhone {
+    width: 250px;
+}
+
+#reportIssueDescr {
+    width: 354px;
+}
+
+#reportIssueBody div {
+    margin: 3px 0px 3px 0px;
+}
+
+#reportIssueFile {
+    width: 338px;
+}
+
+#submitReportIssue {
+    float: right;
+    margin: 0px 5px 0px 5px;
+    clear: right;
+}
+
+
+*.html2canvasreset{
+    overflow: visible !important;
+    width: auto !important;
+    height: auto !important;
+}

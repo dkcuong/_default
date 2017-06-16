@@ -1,0 +1,42 @@
+#testerTable {
+    border: 1px solid #999;
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.testCells {
+    border: 1px solid #999;
+    vertical-align: top;
+    padding: 4px;
+    white-space: nowrap;
+}
+
+.resultCells {
+    width: 100%;
+    
+}
+
+.resultCells iframe {
+    width: 100%;
+}
+
+.testDescription {
+    background: #CDE;
+}
+
+.testSeries {
+    background: #CDB;
+}
+
+.testURL {
+    background: #EDA;
+}
+
+.resultOK {
+    color: green;
+}
+
+.resultDiscrepant {
+    color: #c33;
+}

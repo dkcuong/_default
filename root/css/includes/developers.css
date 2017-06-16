@@ -1,0 +1,53 @@
+/* 
+    developers.css 
+*/
+
+table {
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px #ccc solid;
+    padding: 2px 6px;
+}
+
+#commandsTable,
+#testDescriptionTable {
+    border-collapse: collapse;
+}
+
+#testDescriptionTable td {
+    padding: 4px 6px;
+}
+
+.good {
+    color: #090;
+}
+
+.bad {
+    color: #900;
+}
+
+.ui-tooltip {
+    white-space: pre-line;
+}
+
+#validate {
+    margin: 3px 3px 8px;
+}
+
+
+#index,
+#negates {
+    width: 500px;    
+}
+
+#addTest textarea {
+    width: 500px;
+    height: 150px;
+}
+
+.toggleRows,
+.dataTypeTables {
+    display: none;
+}

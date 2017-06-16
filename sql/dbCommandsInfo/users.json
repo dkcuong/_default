@@ -1,0 +1,89 @@
+[
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "dropTable",
+            "index": "remove group_users table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "tableName": "group_users"
+        },
+        "hash": "a6444d3884649e3e66f065b166adf99d"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addField",
+            "index": "add newPassword field to info table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "table": "info",
+            "fieldName": "newPassword"
+        },
+        "customQuery": [
+            "ALTER TABLE info",
+            "ADD COLUMN newPassword VARCHAR(40) NOT NULL AFTER password; "
+        ],
+        "hash": "2b1973e8f67541121f9c6129e878d1ad"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "updateField",
+            "index": "change newPassword field structure in info table",
+            "negates": ""
+        },
+        "rowAssert": [
+            {
+                "name": "Type",
+                "compare": "!=",
+                "value": "varchar(100)"
+            },
+            {
+                "name": "Null",
+                "compare": "!=",
+                "value": "YES"
+            },
+            {
+                "name": "Default",
+                "compare": "IS NOT NULL",
+                "value": ""
+            }
+        ],
+        "queryInfo": {
+            "table": "info",
+            "fieldName": "newPassword"
+        },
+        "customQuery": [
+            "ALTER TABLE info",
+            "CHANGE newPassword newPassword VARCHAR(100) NULL DEFAULT NULL"
+        ],
+        "hash": "bb2cc9198d99e3eeb29053bfd4511082"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addDatabase",
+            "index": "add Test Data database",
+            "negates": ""
+        },
+        "queryInfo": {
+            "databaseAlias": "tests"
+        },
+        "hash": "b05987d4147063ff0ec65ec817971740"
+    },
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addDatabase",
+            "index": "add Test Run database",
+            "negates": ""
+        },
+        "queryInfo": {
+            "databaseAlias": "testRuns"
+        },
+        "hash": "0d92f863bbae687cb8ba3598b445309e"
+    }
+]

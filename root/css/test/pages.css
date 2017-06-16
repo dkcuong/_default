@@ -1,0 +1,46 @@
+/*
+    pages.css
+*/
+
+.toggleCells,
+.resultTable,
+.collapseExpand {
+    margin: 0;
+    padding: 0;
+}
+
+.resultTable {
+    width: 100%;
+    overflow: hidden;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.collapseExpand {
+    border: 1px solid black;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-color: transparent;    
+}
+
+.switchIgnore {
+    width: 100%;
+}
+
+.resultTable .errorRow {
+    background: rgb(255, 230, 224);
+}
+        
+.toggleCell {
+    vertical-align: top;
+}
+
+.toggleParamDisplay {
+    cursor: pointer;
+    padding: 3px;
+    margin: 3px;
+    border: 1px solid #ccd;
+    background: #f8f8ff;
+}

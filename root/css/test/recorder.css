@@ -1,0 +1,81 @@
+/*
+    recorder.css
+*/
+
+.collapsable {
+    display: none;
+}
+
+#testSetter {
+    font-family: arial,sans-serif;
+    position: absolute;
+    top: 57px;
+    right: 40px;
+    background: white;
+    padding: 5px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+}
+
+.testOptions {
+    display: none;
+}
+
+#tests {
+    width: 100% !important;
+}
+
+#switchRecordMode {
+    width: 100%;
+}
+
+#instructions {
+    margin: 6px 0;
+}
+
+#testMode {
+    width: 100%;
+    padding: 0;
+}
+
+#testingOptions {
+    margin: 5px;
+}
+
+#runTestsLink {
+}
+
+.collapseExpand {
+    background-color: transparent;
+    border: none;
+    margin: auto;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+}
+
+.recording {
+    background: #900;
+    color: white;
+}
+
+#clearTestDB {
+    margin: 8px 0;
+    display: inline;
+}
+
+.testerInfo {
+    display: inline-block;
+}
+
+#tester span.testerInfo {
+    position: relative;
+    top: 3px;
+}
+
+.activeButton {
+    background: #aca;
+    color: green;
+    border: 1px green solid;
+}
+

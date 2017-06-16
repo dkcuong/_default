@@ -1,0 +1,37 @@
+[
+    {
+        "commandType": "modifyStructure",
+        "command": {
+            "model": "addIndexes",
+            "index": "add uniqueURL unique key to tasks table",
+            "negates": ""
+        },
+        "queryInfo": {
+            "searchValue": "uniqueURL",
+            "tableName": "tasks",
+            "searchName": "key_name"
+        },
+        "customQuery": [
+            "ALTER TABLE tasks",
+            "ADD UNIQUE KEY uniqueURL (site, app, class, method)"
+        ],
+        "hash": "335fc87261948af223e17d7415923b18"
+    },
+    {
+        "commandType": "addData",
+        "dataInputs": {
+            "displayName": "Email Invoice Notifications",
+            "app": "wms",
+            "class": "appCrons",
+            "method": "emailInvoiceNotifications",
+            "frequency": "60",
+            "active": 1
+        },
+        "command": {
+            "model": "cronTask",
+            "index": "add Email Invoice Notifications to Crons task table",
+            "negates": ""
+        },
+        "hash": "f84621f8098490d30b704aaa7b15dc08"
+    }
+]

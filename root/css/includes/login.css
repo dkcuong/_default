@@ -1,0 +1,136 @@
+* {
+    margin: 0px;
+    padding: 0px;outline: none;
+}
+ 
+body {
+    background: #FFFFFF;
+    padding: 20px;
+}
+ 
+#loginForm {
+    background: #344C6E;
+    border: 1px solid #3F597E;
+    width: 250px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background:  -moz-linear-gradient(19% 75% 90deg,#6587B6, #344C6E);
+    background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#344C6E), to(#6587B6));
+    margin: 50px auto 20px;
+    padding: 20px;
+    -moz-box-shadow:0px -5px 30px #aaa;
+    -webkit-box-shadow:0px -5px 30px #aaa;
+}
+
+#changePass td {
+    padding: 5px;
+    border: 1px solid #999;
+    vertical-align: middle;
+}
+
+#changePass table {
+    border-collapse: collapse;
+    display: inline-block;
+}
+ 
+div {
+    text-align: center;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+}
+
+#failedLogin,
+#resetMessage {
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    margin: 12px auto 20px;
+    display: inline-block;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-box-shadow:0px -5px 30px #ccc;
+    -webkit-box-shadow:0px -5px 30px #ccc;
+}
+
+#failedLogin {
+    background: rgb(145, 69, 69);
+}
+ 
+#resetMessage {
+    background: rgb(69, 137, 101);
+}
+
+#loginForm label {
+    font-size: 12px;
+    list-style-type: none;
+    color: #ffffff;
+    text-shadow: #666666 1px 1px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+}
+ 
+input[type=text],
+input[type=password],
+#loginForm input {
+    -webkit-transition-property: -webkit-box-shadow, background;
+    -webkit-transition-duration: 0.25s;
+    padding: 6px;
+    border-bottom: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 1px solid #ccc;
+    -moz-box-shadow: 0px 0px 2px #000000;
+    -webkit-box-shadow: 0px 0px 2px #000000;
+    background: #f9f9f9;
+    width: 230px;
+}
+ 
+#loginForm input {
+    margin-bottom: 10px;
+}
+
+#loginForm input:hover {
+    -webkit-box-shadow: 0px 0px 4px #000000;
+    background: #fff;
+}
+ 
+#loginForm input.submit {
+    background: #3F597E;
+    -webkit-transition-property: -webkit-box-shadow, background;
+    -webkit-transition-duration: 0.25s;
+    width: 100px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#344C6E), to(#3F597E));	
+    background:  -moz-linear-gradient(19% 75% 90deg,#3F597E, #344C6E);
+    color: #ffffff;
+    text-transform: uppercase;
+    text-shadow: #000000 1px 1px;
+    border-top: 1px solid #aaa;
+    margin-top: 10px;
+}
+ 
+input.submit:active {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3F597E), to(#344C6E));
+    background:  -moz-linear-gradient(19% 75% 90deg,#344C6E, #3F597E);
+ 
+}
+
+a {
+    color: #3F597E;
+    display: block;
+    margin:20px auto;
+    text-align: center;
+}
+
+#changeSubmit {
+    text-align: right;
+} 
+
